@@ -1,0 +1,159 @@
+export type Social = {
+  name: string;
+  url: string;
+  icon?: string;
+};
+
+export type Info = {
+  name: string;
+  role?: string;
+  location?: string;
+  email?: string;
+  bio?: string;
+  avatar?: string; // e.g. "/images/me.jpg"
+  socials?: Social[];
+};
+
+export type Project = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  year?: number;
+  date?: string;
+  tags?: string[];
+  tech?: string[];
+  category?: string[]; // e.g. ['backend','frontend','web3']
+  client?: string;
+  role?: string;
+  repo?: string; // github url
+  demo?: string; // live url
+  image?: string; // path under /public
+  featured?: boolean;
+  status?: 'wip' | 'done' | 'archived';
+};
+
+export type Skill = {
+  id: string;
+  name: string;
+  category?: string[]; // use same categories
+  level?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  years?: number;
+  icon?: string;
+  order?: number;
+};
+
+export type ContactLink = {
+  id: string;
+  name: string;
+  url: string;
+  description: string;
+  iconType: 'email' | 'github' | 'x' | 'whatsapp' | 'linkedin';
+};
+
+export type Focus = {
+  id: string;
+  title: string;
+  description: string;
+  color: 'blue' | 'purple' | 'green' | 'orange' | 'pink' | 'red';
+};
+
+export const content = {
+  info: {
+    name: 'Jabes Nelma',
+    role: 'Fullstack Developer',
+    location: 'Dili, East-Timor',
+    email: 'jabesnelma056@gmail.com',
+    bio: 'Django / NestJS / Flask · Next.js · Flutter · Web3',
+    avatar: '/images/me.jpg',
+    socials: [
+      { name: 'GitHub', url: 'https://github.com/JabesNelma', icon: '/icons/github.svg' },
+    ],
+  } as Info,
+
+  contactLinks: [
+    {
+      id: 'x',
+      name: 'X (Twitter)',
+      url: 'https://x.com/JabesNelma',
+      description: 'JabesNelma',
+      iconType: 'x',
+    },
+    {
+      id: 'gmail',
+      name: 'Gmail',
+      url: 'mailto:jabesnelma056@gmail.com',
+      description: 'jabesnelma056@gmail.com',
+      iconType: 'email',
+    },
+    {
+      id: 'github',
+      name: 'GitHub',
+      url: 'https://github.com/JabesNelma',
+      description: 'github.com/JabesNelma',
+      iconType: 'github',
+    },
+    {
+      id: 'whatsapp',
+      name: 'WhatsApp',
+      url: 'https://wa.me/67074350912',
+      description: '(+670) 74350912',
+      iconType: 'whatsapp',
+    },
+  ] as ContactLink[],
+
+  currentFocus: [
+    {
+      id: 'okly',
+      title: 'OKLY Platform',
+      description: 'Developing Timor Leste\'s first comprehensive ojek online platform with real-time tracking and secure payments.',
+      color: 'blue',
+    },
+    {
+      id: 'web3',
+      title: 'Web3 Development',
+      description: 'Exploring blockchain solutions and decentralized applications for emerging market use cases.',
+      color: 'green',
+    },
+  ] as Focus[],
+
+  skills: [
+    { id: 'django', name: 'Django', category: ['backend'], level: 'advanced' },
+    { id: 'nest', name: 'NestJS', category: ['backend'], level: 'advanced' },
+    { id: 'flask', name: 'Flask', category: ['backend'], level: 'advanced' },
+    { id: 'next', name: 'Next.js', category: ['frontend'], level: 'advanced' },
+    { id: 'flutter', name: 'Flutter', category: ['frontend'], level: 'advanced' },
+    { id: 'ethers', name: 'ethers.js', category: ['web3'], level: 'intermediate' },
+  ] as Skill[],
+
+  projects: [
+    {
+      id: 'p-django-api',
+      title: 'Xandeum Dashboard - pNode Analytics',
+      description: 'Real-time analytics dashboard for monitoring Xandeum Network pNode performance built with Next.js and TypeScript.',
+      year: 2024,
+      tech: ['Next.js', 'backend'],
+      category: ['Frontend', 'web3'],
+      repo: 'https://github.com/JabesNelma/xandeum-dashboard',
+      demo: "https://xandeum-dashboard-indol.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    }
+  ] as Project[],
+};
+
+/*
+Template tambah project (copy-paste):
+{
+  id: "p-slug",
+  title: "Judul Project",
+  description: "Ringkasan singkat",
+  year: 2025,
+  tech: ["Next.js","ethers.js"],
+  category: ["frontend","web3"],
+  repo: "https://github.com/...",
+  demo: "https://...",
+  image: "/projects/your-image.png"
+}
+*/
+
+export default content;
