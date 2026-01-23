@@ -128,15 +128,26 @@ export const content = {
 
   projects: [
     {
-      id: 'p-django-api',
+      id: 'web3-frontend',
       title: 'Xandeum Dashboard - pNode Analytics',
       description: 'Real-time analytics dashboard for monitoring Xandeum Network pNode performance built with Next.js and TypeScript.',
-      year: 2024,
+      year: 2025,
       tech: ['Next.js', 'backend'],
       category: ['Frontend', 'web3'],
       repo: 'https://github.com/JabesNelma/xandeum-dashboard',
       demo: "https://xandeum-dashboard-indol.vercel.app/",
       image: '/projects/ecommerce-api.png',
+    },
+    {
+      id: 'frontend-web2',
+      title: 'JSONPlaceholder Frontend Demo',
+      description: 'A cinematic frontend demo showcasing animated UI components, smooth scroll interactions, and WebGL background effects — built with Next.js 14, TypeScript, and Tailwind CSS for educational purposes.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis', 'WebGL (OGL)'],
+      category: ['Frontend', 'UI/UX', 'Animation'],
+      repo: 'https://github.com/JabesNelma/jsonplaceholder-frontend',
+      demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
     }
   ] as Project[],
 };

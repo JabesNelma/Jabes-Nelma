@@ -76,7 +76,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   mobileTiltSensitivity = 5,
   miniAvatarUrl,
   name = 'Jabes Nelma',
-  title = 'Senior Frontend Engineer',
+  title = 'Junior Frontend Engineer',
   handle = 'jabesnelma',
   status = 'Online',
   contactText = 'Contact',

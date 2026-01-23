@@ -40,7 +40,7 @@ export default function Hero() {
           >
             <TextType
               className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-              text="Senior Frontend Engineer & Backend Specialist focused on building secure, scalable solutions for emerging markets like Timor Leste."
+              text="Junior Frontend Engineer & Backend Enthusiast focused on learning, growing, and building secure, scalable solutions for emerging markets like Timor Leste."
               typingSpeed={32}
               pauseDuration={2200}
               loop={true}

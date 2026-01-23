@@ -54,7 +54,7 @@ export default function About() {
               <ProfileCard 
                 avatarUrl="/1.jpg" 
                 name="Jabes Nelma" 
-                title="Senior Frontend Engineer & Backend Specialist"
+                title="Junior Frontend Engineer & Backend Enthusiast"
                 onContactClick={() => window.location.href = 'mailto:jabesnelma056@gmail.com'}
               />
             </div>
@@ -69,7 +69,7 @@ export default function About() {
 
             <div className="prose prose-invert max-w-none">
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                I'm Jabes Nelma, a senior frontend engineer and backend specialist with a passion for creating robust, secure solutions for emerging markets like Timor Leste. With experience spanning across full-stack development, fintech, healthcare digitization, and web3 technologies, I focus on building products that make a meaningful impact.
+                I'm Jabes Nelma, a junior frontend engineer and backend enthusiast who is actively learning and growing while building robust, secure solutions for emerging markets like Timor Leste. With early experience across full-stack development, fintech, healthcare digitization, and web3 technologies, I focus on developing my skills and contributing to products that make a meaningful impact.
               </p>
 
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
