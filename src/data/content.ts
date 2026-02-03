@@ -123,6 +123,8 @@ export const content = {
     { id: 'flask', name: 'Flask', category: ['backend'], level: 'advanced' },
     { id: 'next', name: 'Next.js', category: ['frontend'], level: 'advanced' },
     { id: 'flutter', name: 'Flutter', category: ['frontend'], level: 'advanced' },
+    // Custom marquee/logo loop component capability
+    { id: 'logo-loop', name: 'LogoLoop Component', category: ['frontend'], level: 'advanced' },
     { id: 'ethers', name: 'ethers.js', category: ['web3'], level: 'intermediate' },
   ] as Skill[],
 
