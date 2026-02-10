@@ -130,6 +130,66 @@ export const content = {
 
   projects: [
     {
+      id: '1',
+      title: 'Weather Insight Dashboard',
+      description: 'A modern, responsive weather dashboard with beautiful visualizations and smooth animations.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Recharts'],
+      category: ['Frontend', 'API Integration', 'Data Visualization'],
+      repo: 'https://github.com/JabesNelma/Weather-Insight',
+      demo: "https://weather-insight-pi.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },
+
+    {
+      id: '2',
+      title: '3D Crypto Sphere Market Explorer',
+      description: 'An interactive 3D web application built to visualize real-time cryptocurrency market data using Three.js and the CoinGecko Public API.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Three.js', 'CoinGecko API', 'Prisma'],
+      category: ['Frontend', 'API Integration', 'Data Visualization', '3D Visualization'],
+      repo: 'https://github.com/JabesNelma/3D-Crypto-Sphare',
+      demo: "https://3-d-crypto-sphare.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },    
+
+    {
+      id: '3',
+      title: 'Data Hub API',
+      description: 'A Generic Open Data Backend.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Three.js', 'CoinGecko API', 'Prisma', 'sqlite', 'bcrypt', 'next-auth', 'zustand', 'react-query'],
+      category: ['Frontend', 'API Integration', 'Data Visualization'],
+      repo: 'https://github.com/JabesNelma/data-hub-api',
+      demo: "https://data-hub-api.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },  
+    
+    {
+      id: '4',
+      title: 'JN - Modern Product Landing Page',
+      description: 'A premium, motion-driven product landing page built with Next.js 16, Framer Motion, and Tailwind CSS. Features immersive animations, interactive product showcase, and seamless checkout experience.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Three.js', 'CoinGecko API', 'Prisma', 'sqlite', 'bcrypt', 'next-auth', 'zustand', 'react-query'],
+      category: ['Frontend', 'Data Visualization', '3D Visualization'],
+      repo: 'https://github.com/JabesNelma/landing_page_lvl-1',
+      demo: "https://landing-page-lvl-1.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },  
+
+    {
+      id: '5',
+      title: 'School Information System',
+      description: 'Full‑stack School Information System with Flask API and Next.js App Router | adminn login (default): admin / admin123 — change after first login.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Three.js', 'CoinGecko API', 'Prisma', 'sqlite', 'bcrypt', 'next-auth', 'zustand', 'react-query', 'flask', 'sqlalchemy', 'flask-restful', 'flask-jwt-extended'],
+      category: ['Frontend', 'Data Visualization', '3D Visualization'],
+      repo: 'https://github.com/JabesNelma/school-system',
+      demo: "https://school-system-henna.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },  
+
+    {
       id: 'web3-frontend',
       title: 'Xandeum Dashboard - pNode Analytics',
       description: 'Real-time analytics dashboard for monitoring Xandeum Network pNode performance built with Next.js and TypeScript.',
