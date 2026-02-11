@@ -1,49 +1,179 @@
-# Portfolio Content Guide
+# 🚀 Jabes Nelma — Portfolio
 
-This repository uses a centralized TypeScript data file to manage displayed content (projects, skills, profile info).
+A modern, animated developer portfolio built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. Features scroll-triggered animations, interactive skill tooltips, 3D background effects, and a fully data-driven architecture.
 
-Files
-- `src/data/content.ts` — main typed data source. Edit this file to add or update projects, skills, and profile info.
-- `src/data/projects.ts` — adapter that maps `content.projects` to the shape expected by the existing `Projects` component. Handles `category` as an array.
-- `public/projects/` — put project images here and reference them from `image` fields (e.g. `/projects/my-app.png`).
+🔗 **Live:** [jabesnelma-portfolio.vercel.app](https://jabesnelma-portfolio.vercel.app)
 
-How to add a project (quick)
-1. Add your image to `public/projects/your-image.png`.
-2. Open `src/data/content.ts` and copy the project template (at the bottom of the file).
-3. Paste the object into the `projects` array and fill fields (use kebab-case for `id`).
-4. Commit & push to GitHub — Vercel will rebuild and deploy.
+---
 
-Project template
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| **Scroll Animations** | Framer Motion `whileInView` — fade-up, slide, scale-in, stagger effects on every section |
+| **Interactive Skills** | Hover any skill badge to see which projects use that technology |
+| **Expandable Tech Tags** | "+N more" button on project cards expands to show all technologies |
+| **3D Background** | WebGL particle background using Three.js |
+| **Logo Marquee** | Auto-scrolling tech logo loop with pause-on-hover |
+| **Typing Effect** | Auto-typing hero subtitle with cursor blink |
+| **Profile Card** | 3D tilt card with avatar and contact CTA |
+| **Stat Counters** | Animated number counters for projects, technologies, and experience |
+| **Smooth Scroll** | CSS `scroll-behavior: smooth` + section glow dividers |
+| **Responsive** | Fully responsive design — mobile, tablet, and desktop |
+| **Data-Driven** | All content managed from a single `content.ts` file |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Framework** | Next.js 14 (App Router) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS 3 |
+| **Animations** | Framer Motion 11, GSAP |
+| **3D / WebGL** | Three.js |
+| **Icons** | React Icons (FontAwesome, Simple Icons) |
+| **Deployment** | Vercel |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css          # Global styles, smooth scroll, section dividers
+│   ├── layout.tsx           # Root layout with metadata
+│   └── page.tsx             # Main page — assembles all sections
+├── components/
+│   ├── background/
+│   │   └── ReactBitsBackground.tsx   # WebGL particle background
+│   ├── layout/
+│   │   └── Navbar.tsx                # Fixed navbar with GooeyNav
+│   ├── sections/
+│   │   ├── Hero.tsx          # Hero section with typing effect
+│   │   ├── About.tsx         # About + profile card + stat counters
+│   │   ├── Projects.tsx      # Project grid with expandable tech tags
+│   │   ├── Skills.tsx        # Skill categories with hover tooltips
+│   │   └── Contact.tsx       # Contact links + current focus
+│   └── ui/
+│       ├── GooeyNav.tsx      # Liquid gooey navigation component
+│       ├── LogoLoop.tsx      # Auto-scrolling logo marquee
+│       ├── ProfileCard.tsx   # 3D tilt profile card
+│       ├── SectionWrapper.tsx
+│       ├── StatCard.tsx      # Animated number counter
+│       └── TextType.tsx      # Typing animation component
+├── data/
+│   ├── content.ts            # ⭐ Single source of truth for all content
+│   ├── contact.ts            # Contact data adapter
+│   └── projects.ts           # Projects data adapter
+└── lib/
+    └── scroll.ts             # Scroll utilities
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/JabesNelma/portfolio.git
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 📝 Content Management
+
+All displayed content is managed from a **single file**: `src/data/content.ts`
+
+### Add a Project
+
+Add an object to the `projects` array in `src/data/content.ts`:
 
 ```ts
 {
-  id: "p-slug",
-  title: "Judul Project",
-  description: "Ringkasan singkat",
-  year: 2025,
-  tech: ["Next.js","ethers.js"],
-  category: ["frontend","web3"],
-  repo: "https://github.com/...",
-  demo: "https://...",
-  image: "/projects/your-image.png"
+  id: "my-project",
+  title: "My New Project",
+  description: "A brief description of the project.",
+  year: 2026,
+  tech: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma"],
+  category: ["Frontend", "API Integration"],
+  repo: "https://github.com/JabesNelma/my-project",
+  demo: "https://my-project.vercel.app/",
+  image: "/projects/my-project.png"
 }
 ```
 
-**Note:** The `category` field accepts an array of categories. All categories will be displayed as badges below the technology stack in the project card.
+### Add a Skill
 
-How to add a skill
-1. Open `src/data/content.ts`.
-2. Add an object to the `skills` array. Use `category` with one or more of: `backend`, `frontend`, `web3`.
-
-Example skill
+Add an object to the `skills` array:
 
 ```ts
-{ id: 'nest', name: 'NestJS', category: ['backend'], level: 'advanced' }
+{ id: "docker", name: "Docker", category: ["backend"], level: "intermediate" }
 ```
 
-Notes
-- All project categories (e.g., `frontend`, `web3`) are now displayed together as badges below the technology stack.
-- We intentionally keep the UI components unchanged. The code maps the typed `content` into the format current components expect.
-- If you need a non-developer UI to add content later, we can add a small admin page or a CLI script that updates `src/data/content.ts` or `content.json`.
+Available categories: `frontend`, `backend`, `web3`, `api`
 
-That's it — add entries, commit, push, and the site will update on Vercel after build.
+### Update Contact / Profile
+
+Edit the `info`, `contactLinks`, or `currentFocus` objects in the same file.
+
+---
+
+## 🎬 Animation Details
+
+| Section | Animation Type |
+|---|---|
+| **Hero** | Fade-up with staggered delays on title, subtitle, and CTA buttons |
+| **About** | Profile slides from left, content from right, stat cards scale-in with stagger |
+| **Projects** | Cards fade-up + scale with stagger, tech badges animate on expand/collapse |
+| **Skills** | Cards fade-up with stagger, icons spin-in, skill badges scale-in sequentially |
+| **Contact** | Left column slides from left, right from right, social links slide-in with hover shift |
+
+All animations use `whileInView` with `viewport={{ once: true }}` — they trigger once when scrolling into view.
+
+---
+
+## 🌐 Deployment
+
+This project is configured for **Vercel** deployment:
+
+1. Push to GitHub
+2. Connect the repository on [vercel.com](https://vercel.com)
+3. Vercel auto-detects Next.js and deploys
+
+Every push to `main` triggers an automatic rebuild and deployment.
+
+---
+
+## 📄 License
+
+This project is open source and available for personal use and learning.
+
+---
+
+**Built with ❤️ by [Jabes Nelma](https://github.com/JabesNelma)**
