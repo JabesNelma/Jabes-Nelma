@@ -123,9 +123,15 @@ export const content = {
     { id: 'flask', name: 'Flask', category: ['backend'], level: 'advanced' },
     { id: 'next', name: 'Next.js', category: ['frontend'], level: 'advanced' },
     { id: 'flutter', name: 'Flutter', category: ['frontend'], level: 'advanced' },
-    // Custom marquee/logo loop component capability
     { id: 'logo-loop', name: 'LogoLoop Component', category: ['frontend'], level: 'advanced' },
     { id: 'ethers', name: 'ethers.js', category: ['web3'], level: 'intermediate' },
+    // API Integration skills
+    { id: 'rest-api', name: 'REST API', category: ['api'], level: 'advanced' },
+    { id: 'coingecko', name: 'CoinGecko API', category: ['api'], level: 'advanced' },
+    { id: 'spacex-api', name: 'SpaceX API', category: ['api'], level: 'advanced' },
+    { id: 'weather-api', name: 'Weather API', category: ['api'], level: 'advanced' },
+    { id: 'prisma', name: 'Prisma', category: ['api', 'backend'], level: 'advanced' },
+    { id: 'next-auth', name: 'NextAuth', category: ['api'], level: 'intermediate' },
   ] as Skill[],
 
   projects: [
@@ -150,6 +156,18 @@ export const content = {
       category: ['Frontend', 'API Integration', 'Data Visualization', '3D Visualization'],
       repo: 'https://github.com/JabesNelma/3D-Crypto-Sphare',
       demo: "https://3-d-crypto-sphare.vercel.app/",
+      image: '/projects/ecommerce-api.png',
+    },    
+
+    {
+      id: 'f',
+      title: 'SpaceX Intelligence Dashboard',
+      description: '🚀 Real-time aerospace analytics platform with 3D Earth visualization, interactive charts, and live launch data powered by Next.js, Three.js & the SpaceX API.',
+      year: 2026,
+      tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Shadcn/UI', 'Framer Motion', 'next-themes', 'Lucide Icons', 'Three.js', 'CoinGecko API', 'Prisma'],
+      category: ['Frontend', 'API Integration', 'Data Visualization', '3D Visualization'],
+      repo: 'https://github.com/JabesNelma/SpaceX-Intelligence-Dashboard',
+      demo: "https://space-x-intelligence-dashboard.vercel.app/",
       image: '/projects/ecommerce-api.png',
     },    
 
