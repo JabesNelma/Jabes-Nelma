@@ -2,7 +2,7 @@
 
 A modern, animated developer portfolio built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. Features scroll-triggered animations, interactive skill tooltips, 3D background effects, and a fully data-driven architecture.
 
-🔗 **Live:** [jabesnelma-portfolio.vercel.app](https://jabesnelma-portfolio.vercel.app)
+🔗 **Live:** [jabes-nelma.vercel.app](https://jabes-nelma.vercel.app/)
 
 ---
 
@@ -35,6 +35,21 @@ A modern, animated developer portfolio built with **Next.js 14**, **TypeScript**
 | **3D / WebGL** | Three.js |
 | **Icons** | React Icons (FontAwesome, Simple Icons) |
 | **Deployment** | Vercel |
+
+---
+
+## 🗂️ Featured Projects
+
+| # | Project | Description | Demo |
+|---|---|---|---|
+| 1 | **Weather Insight Dashboard** | Modern responsive weather dashboard with beautiful visualizations | [Live](https://weather-insight-pi.vercel.app/) |
+| 2 | **3D Crypto Sphere Market Explorer** | Interactive 3D crypto market data visualization with Three.js & CoinGecko API | [Live](https://3-d-crypto-sphare.vercel.app/) |
+| 3 | **SpaceX Intelligence Dashboard** | Real-time aerospace analytics with 3D Earth visualization & live launch data | [Live](https://space-x-intelligence-dashboard.vercel.app/) |
+| 4 | **Data Hub API** | Generic Open Data Backend with full CRUD, auth, and analytics | [Live](https://data-hub-api.vercel.app/) |
+| 5 | **JN — Modern Product Landing Page** | Premium motion-driven landing page with immersive animations | [Live](https://landing-page-lvl-1.vercel.app/) |
+| 6 | **School Information System** | Full-stack SIS with Flask API backend and Next.js frontend | [Live](https://school-system-henna.vercel.app/) |
+| 7 | **Xandeum Dashboard — pNode Analytics** | Real-time Xandeum Network pNode performance analytics | [Live](https://xandeum-dashboard-indol.vercel.app/) |
+| 8 | **JSONPlaceholder Frontend Demo** | Cinematic frontend demo with animated UI, smooth scroll & WebGL background | [Live](https://jsonplaceholder-frontend.vercel.app/) |
 
 ---
 
@@ -85,8 +100,8 @@ src/
 
 ```bash
 # Clone the repository
-git clone https://github.com/JabesNelma/portfolio.git
-cd portfolio
+git clone https://github.com/JabesNelma/Jabes-Nelma.git
+cd Jabes-Nelma
 
 # Install dependencies
 npm install
@@ -167,6 +182,16 @@ This project is configured for **Vercel** deployment:
 3. Vercel auto-detects Next.js and deploys
 
 Every push to `main` triggers an automatic rebuild and deployment.
+
+---
+
+## 📬 Contact
+
+- **Email:** jabesnelma056@gmail.com
+- **GitHub:** [github.com/JabesNelma](https://github.com/JabesNelma)
+- **X (Twitter):** [@JabesNelma](https://x.com/JabesNelma)
+- **WhatsApp:** [(+670) 74350912](https://wa.me/67074350912)
+- **Location:** Dili, East-Timor
 
 ---
 
