@@ -48,7 +48,7 @@ export default function Contact() {
           className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           variants={fadeUp}
           custom={0}
         >
@@ -67,7 +67,7 @@ export default function Contact() {
               className="bg-gray-800/50 rounded-xl border border-gray-700 p-8"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <h3 className="text-2xl font-bold text-white mb-6">Let's Connect</h3>
@@ -87,7 +87,7 @@ export default function Contact() {
                     className="flex items-center p-3 bg-gray-700/30 rounded-lg hover:bg-gray-700/50 transition group"
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.4, delay: i * 0.1 + 0.2 }}
                     whileHover={{ x: 6, transition: { duration: 0.2 } }}
                   >
@@ -112,7 +112,7 @@ export default function Contact() {
               className="bg-gray-800/50 rounded-xl border border-gray-700 p-8"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <h3 className="text-2xl font-bold text-white mb-6">Current Focus</h3>
@@ -124,7 +124,7 @@ export default function Contact() {
                     className="p-4 bg-gray-700/30 rounded-lg"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.4, delay: i * 0.12 + 0.2 }}
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   >
@@ -141,7 +141,7 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.4, delay: 0.4 }}
                     whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
                     role="button"
@@ -166,7 +166,7 @@ export default function Contact() {
                 className="mt-6 p-4 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg border border-blue-500/20"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
                 <p className="text-sm text-gray-300 italic">

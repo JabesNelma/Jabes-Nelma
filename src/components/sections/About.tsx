@@ -7,6 +7,7 @@
 
 import dynamic from "next/dynamic";
 import { projects } from "@/data/projects";
+import content from "@/data/content";
 import { motion } from "framer-motion";
 
 const ProfileCard = dynamic(() => import("@/components/ui/ProfileCard"), { ssr: false });
@@ -51,8 +52,16 @@ const scaleIn = {
 
 export default function About() {
   const totalProjects = projects.length;
-  const allTechnologies = Array.from(new Set(projects.flatMap((project) => project.technologies))).length;
-  const yearsOfExperience = new Date().getFullYear() - 2024;
+  const projectNames = content.projects.map((p) => p.title);
+  const allTechList = Array.from(new Set(projects.flatMap((project) => project.technologies)));
+  const allTechnologies = allTechList.length;
+
+  // Auto-calculate years from the earliest project year in content.ts
+  const projectYears = content.projects
+    .map((p) => p.year)
+    .filter((y): y is number => typeof y === 'number' && y > 0);
+  const earliestYear = projectYears.length > 0 ? Math.min(...projectYears) : new Date().getFullYear();
+  const yearsOfExperience = new Date().getFullYear() - earliestYear;
 
   return (
     <section id="about" className="section-padding bg-gray-900/50">
@@ -62,7 +71,7 @@ export default function About() {
           className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           variants={fadeUp}
           custom={0}
         >
@@ -79,14 +88,14 @@ export default function About() {
             className="w-full md:w-1/3 flex justify-center mb-8 md:mb-0"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
             variants={fadeLeft}
           >
             <div className="-mt-[12px] md:-mt-[28px] lg:-mt-[44px] transform-gpu hover:-translate-y-1 transition">
               <ProfileCard 
                 avatarUrl="/1.jpg" 
                 name="Jabes Nelma" 
-                title="Junior Frontend Engineer & Backend Enthusiast"
+                title="Junior Full Stack Developer"
                 onContactClick={() => window.location.href = 'mailto:jabesnelma056@gmail.com'}
               />
             </div>
@@ -97,53 +106,55 @@ export default function About() {
             className="w-full md:w-2/3"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             variants={fadeRight}
           >
             {/* Stat cards with staggered scale-in */}
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {[
-                { value: totalProjects, label: "Projects Completed", color: "text-blue-400" },
-                { value: allTechnologies, label: "Technologies Mastered", color: "text-purple-400" },
+                { value: totalProjects, label: "Projects Completed", color: "text-blue-400", items: projectNames },
+                { value: allTechnologies, label: "Technologies Mastered", color: "text-purple-400", items: allTechList },
                 { value: yearsOfExperience, label: "Years Experience", color: "text-indigo-400" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   variants={scaleIn}
                   custom={i}
                 >
-                  <StatCard value={stat.value} label={stat.label} colorClass={stat.color} />
+                  <StatCard value={stat.value} label={stat.label} colorClass={stat.color} hoverItems={stat.items} />
                 </motion.div>
               ))}
             </div>
 
             <div className="prose prose-invert max-w-none">
               {[
-                "I'm Jabes Nelma, a junior frontend engineer and backend enthusiast who is actively learning and growing while building robust, secure solutions for emerging markets like Timor Leste. With early experience across full-stack development, fintech, healthcare digitization, and web3 technologies, I focus on developing my skills and contributing to products that make a meaningful impact.",
-                "My expertise includes developing scalable backend systems using Django and PostgreSQL, creating responsive frontend experiences with React and Next.js, and implementing banking-level security standards for financial applications. I believe in writing clean, maintainable code and following best practices for long-term project success.",
-                "Currently, I'm working on several innovative projects including OKLY (Timor Leste's first ojek online platform), OKLYP (cross-border remittance system), and medical records digitization initiatives. My goal is to leverage technology to solve real-world problems and contribute to the digital transformation of emerging economies.",
+                "I am a Junior Full Stack Developer with strong programming fundamentals and an adaptive engineering mindset. My journey in technology began in high school at ETI (Eskola Teknika Informatica) – Baucau, where I was formally introduced to web development through subjects such as Web Design (Dezenhu Website), learning HTML, CSS, and PHP. From an early stage, I was exposed not only to building interfaces but also to understanding how systems are structured.",
+                "My academic focus was on programming, where we studied fundamental concepts using Pascal — a strict and structured language that significantly strengthened my logical thinking and problem-solving abilities. Although Pascal is considered traditional, it gave me a deep understanding of core programming principles. This foundation made it easier for me to transition into modern languages, as I strongly believe that programming logic remains consistent — only syntax differs.",
+                'Beyond formal education, I actively expanded my knowledge independently. I learned JavaScript and Python through self-study, particularly from resources like <a href="https://www.petanikode.com/tutorial/" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Petani Kode</a>, which helped me strengthen my understanding of modern programming practices. This self-driven learning approach shaped my adaptability and ability to quickly migrate between technologies.',
+                "My experience with Object-Oriented Programming (OOP) started in high school through the POO subject. For my final professional examination (Prova Aptidaun Profesional), I worked on an information system project using Visual Basic integrated with Microsoft Access, where I deepened my understanding of database systems and backend logic. This experience solidified my full stack perspective — from user interface to database design and system architecture.",
+                "When I entered university, I realized that I was not starting from zero. Instead, I was transitioning. With strong fundamentals in logic, OOP, and databases, adapting to modern stacks became a matter of syntax adjustment and architectural refinement.",
+                "Currently, I focus on continuously improving as a Junior Full Stack Developer while preparing myself to grow into a Senior Full Stack Developer. I am particularly interested in exploring emerging technologies such as Web3 and modern distributed systems, aiming to build scalable, efficient, and future-ready applications.",
               ].map((text, i) => (
                 <motion.p
                   key={i}
                   className="text-lg text-gray-300 mb-6 leading-relaxed"
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   variants={fadeUp}
                   custom={i}
-                >
-                  {text}
-                </motion.p>
+                  dangerouslySetInnerHTML={{ __html: text }}
+                />
               ))}
 
               <motion.div
                 className="mt-8 p-6 bg-gray-800/30 rounded-xl border border-gray-700"
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }}
                 variants={fadeUp}
                 custom={3}
               >
@@ -160,7 +171,7 @@ export default function About() {
                       className="flex items-start"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: false }}
                       transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
                     >
                       <span className="text-green-400 mr-2">✓</span>

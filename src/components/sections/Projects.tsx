@@ -41,7 +41,7 @@ export default function Projects() {
           className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           variants={fadeUp}
           custom={0}
         >
@@ -62,7 +62,7 @@ export default function Projects() {
                 initial="hidden"
                 whileInView="visible"
                 exit="exit"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.15 }}
                 variants={cardVariant}
                 custom={i % 6}
                 whileHover={{ y: -6, transition: { duration: 0.25 } }}
@@ -158,7 +158,7 @@ export default function Projects() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.5, delay: 0.3 }}
               whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.25 } }}
               role="button"

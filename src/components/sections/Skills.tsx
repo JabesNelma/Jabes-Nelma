@@ -217,7 +217,7 @@ export default function Skills() {
           className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
@@ -267,7 +267,7 @@ export default function Skills() {
               key={index}
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
               className="bg-gray-800/50 rounded-xl border border-gray-700 p-6 hover:border-gray-600 hover:shadow-lg hover:shadow-blue-500/5"
@@ -277,7 +277,7 @@ export default function Skills() {
                   className="mr-3 text-2xl"
                   initial={{ rotate: -180, opacity: 0 }}
                   whileInView={{ rotate: 0, opacity: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.6, delay: index * 0.12 + 0.2, type: "spring" }}
                 >
                   {category.icon}
@@ -293,7 +293,7 @@ export default function Skills() {
                     key={skillIndex}
                     initial={{ opacity: 0, scale: 0.7 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.3, delay: index * 0.12 + skillIndex * 0.06 + 0.3 }}
                     onMouseEnter={(e) => handleMouseEnter(skill, e)}
                     onMouseLeave={handleMouseLeave}
@@ -315,7 +315,7 @@ export default function Skills() {
           className="mt-16 bg-gray-800/30 rounded-xl border border-gray-700 p-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
           <h3 className="text-2xl font-bold text-white mb-4 text-center">
@@ -332,7 +332,7 @@ export default function Skills() {
                 className="text-center p-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
                 whileHover={{ y: -6, transition: { duration: 0.25 } }}
               >
@@ -348,7 +348,7 @@ export default function Skills() {
           className="mt-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
           <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-4">

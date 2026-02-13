@@ -104,16 +104,22 @@ export const content = {
 
   currentFocus: [
     {
-      id: 'okly',
-      title: 'OKLY Platform',
-      description: 'Developing Timor Leste\'s first comprehensive ojek online platform with real-time tracking and secure payments.',
+      id: 'fullstack-growth',
+      title: 'Full Stack Growth',
+      description: 'Continuously improving as a Junior Full Stack Developer while preparing to grow into a Senior Full Stack Developer.',
       color: 'blue',
     },
     {
       id: 'web3',
-      title: 'Web3 Development',
-      description: 'Exploring blockchain solutions and decentralized applications for emerging market use cases.',
+      title: 'Web3 & Distributed Systems',
+      description: 'Exploring emerging technologies such as Web3 and modern distributed systems for scalable, future-ready applications.',
       color: 'green',
+    },
+    {
+      id: 'scalable-apps',
+      title: 'Scalable Applications',
+      description: 'Building efficient, scalable, and maintainable applications using modern full stack architectures.',
+      color: 'purple',
     },
   ] as Focus[],
 
@@ -227,6 +233,85 @@ export const content = {
       category: ['Frontend', 'UI/UX', 'Animation'],
       repo: 'https://github.com/JabesNelma/jsonplaceholder-frontend',
       demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+
+    {
+      id: 'lat3-py',
+      title: 'Aplikasi Cuaca Gratis (Free Weather App)',
+      description: 'Aplikasaun deskritivu ba tempu real neebé uza Python no Tkinter. Husi API Open-Meteo (gratis, la presiza API key). Aprende integrasaun API ho projetu ida-nee.',
+      year: 2023,
+      tech: ['Python', 'Tkinter (built-in)'],
+      category: ['Application', 'Desktop'],
+      repo: 'https://github.com/JabesNelma/aprende-api-klima-python',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+
+    {
+      id: 'lat1-py',
+      title: 'Plate Rental System (Sistema Aluga Bikan)',
+      description: 'Halo sistema ba Rental Bikan uza python.',
+      year: 2022,
+      tech: ['Python', 'Tkinter (built-in)', 'datetime module'],
+      category: ['Application', 'Desktop'],
+      repo: 'https://github.com/JabesNelma/Latihan-1-python-',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+    {
+      id: 'lat1-html',
+      title: 'Python from Scratch: Beginner Learning Project',
+      description: 'A beginners Python learning project created in 2021, featuring practice exercises and notes covering fundamental to intermediate concepts. Based on tutorials from Petani Kode (https://www.petanikode.com/tutorial/python/). For educational purposes only.',
+      year: 2021,
+      tech: ['Python'],
+      category: ['Learning', 'Education'],
+      repo: 'https://github.com/JabesNelma/learning-python',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+    {
+      id: 'lat1-html',
+      title: 'project portfolio website laerning with Petani Code',
+      description: 'this is my first proyek when I learning with Petani code.',
+      year: 2021,
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      category: ['Frontend', 'Web Design'],
+      repo: 'https://github.com/JabesNelma/Latihan-1-Html-Css-Js-',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+    {
+      id: 'learning js',
+      title: 'JavaScript from Scratch: Beginner Learning Project',
+      description: 'A beginners JavaScript learning project created in 2021, featuring practice exercises covering fundamental concepts. Based on tutorials from Petani Kode. For educational purposes only.',
+      year: 2021,
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      category: ['Frontend', 'Web Design'],
+      repo: 'https://github.com/JabesNelma/aprende-javascript',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+    {
+      id: 'learning css',
+      title: 'CSS Learning Project: Web Design School Curriculum & Petani Kode Tutorials',
+      description: 'A beginners CSS learning project created in 2021 during high school Web Design classes, featuring practice exercises from both school curriculum and Petani Kode tutorials. Covers fundamental CSS concepts for educational purposes only.',
+      year: 2020,
+      tech: ['HTML', 'CSS', 'learning'],
+      category: ['Frontend', 'Web Design'],
+      repo: 'https://github.com/JabesNelma/aprende-css',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
+      image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
+    },
+    {
+      id: 'learning html',
+      title: 'My First & Most Beloved HTML Project: High School Web Design & Petani Kode Learning (2020)',
+      description: 'My first HTML learning project created in 2020 during high school (class 1), combining Web Design curriculum from school and Petani Kode tutorials. This was my most cherished learning experience at the time, featuring foundational HTML practices for educational purposes only. 🌟',
+      year: 2020,
+      tech: ['HTML', 'CSS'],
+      category: ['Frontend', 'Web Design', 'Learning'],
+      repo: 'https://github.com/JabesNelma/Aprende-Html',
+      //demo: 'https://jsonplaceholder-frontend.vercel.app/',
       image: '/projects/jsonplaceholder-frontend.png', // pastikan file ini ada di public/projects/
     }
   ] as Project[],
