@@ -32,11 +32,8 @@ export function PublicNav() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
-              JD
+              JN
             </div>
-            <span className="font-semibold text-lg hidden sm:block">
-              Portfolio
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
