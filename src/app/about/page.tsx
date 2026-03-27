@@ -169,20 +169,12 @@ export default function AboutPage() {
                     transition={{ delay: 0.2 }}
                     className="w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-background shadow-xl"
                   >
-                    {siteConfig.ownerProfileImage ? (
-                      <Image
-                        src={siteConfig.ownerProfileImage}
-                        alt={siteConfig.ownerName || 'Profile'}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-primary/20 via-primary/10 to-purple-500/20 flex items-center justify-center">
-                        <span className="text-6xl font-bold text-primary/30">
-                          {siteConfig.ownerName?.charAt(0) || 'J'}
-                        </span>
-                      </div>
-                    )}
+                    <Image
+                      src={siteConfig.ownerProfileImage || '/12.png'}
+                      alt={siteConfig.ownerName || 'Profile'}
+                      fill
+                      className="object-cover"
+                    />
                   </motion.div>
                 </div>
 

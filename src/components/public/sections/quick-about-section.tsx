@@ -28,7 +28,7 @@ const defaultProps: QuickAboutSectionProps = {
   location: 'Dili, East-Timor',
   experience: '5+ Years',
   education: 'CS Degree',
-  profileImage: null,
+  profileImage: '/12.png',
   skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL'],
 }
 
