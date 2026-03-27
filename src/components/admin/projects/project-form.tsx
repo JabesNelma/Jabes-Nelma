@@ -35,6 +35,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { ImageUploader } from "@/components/admin/image-uploader"
 
 const projectSchema = z.object({
   title: z.string().min(1, "Title is required").max(200, "Title is too long"),
@@ -72,7 +73,6 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState(false)
   const [techInput, setTechInput] = React.useState("")
-  const [imageUrlInput, setImageUrlInput] = React.useState("")
 
   // Parse existing data
   const existingImages = project?.images ? JSON.parse(project.images) : []
@@ -110,17 +110,23 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
     )
   }
 
-  const addImage = () => {
-    if (imageUrlInput.trim() && !images.includes(imageUrlInput.trim())) {
-      form.setValue("images", [...images, imageUrlInput.trim()])
-      setImageUrlInput("")
+  const addUploadedImage = (url: string) => {
+    if (!images.includes(url)) {
+      form.setValue("images", [...images, url], {
+        shouldDirty: true,
+        shouldValidate: true,
+      })
     }
   }
 
-  const removeImage = (url: string) => {
+  const removeImage = (index: number) => {
     form.setValue(
       "images",
-      images.filter((i) => i !== url)
+      images.filter((_, i) => i !== index),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      }
     )
   }
 
@@ -290,49 +296,33 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
               render={() => (
                 <FormItem>
                   <FormLabel>Images</FormLabel>
-                  <div className="space-y-2">
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="https://example.com/image.jpg"
-                        value={imageUrlInput}
-                        onChange={(e) => setImageUrlInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault()
-                            addImage()
-                          }
-                        }}
-                        disabled={isLoading}
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={addImage}
-                        disabled={isLoading || !imageUrlInput.trim()}
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
+                  <div className="space-y-3">
+                    <ImageUploader onUpload={addUploadedImage} disabled={isLoading} />
+
                     {images.length > 0 && (
-                      <div className="space-y-2">
-                        {images.map((url) => (
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                        {images.map((url, index) => (
                           <div
-                            key={url}
-                            className="flex items-center gap-2 rounded-md border p-2"
+                            key={`${url}-${index}`}
+                            className="group relative overflow-hidden rounded-md border"
                           >
                             <img
                               src={url}
-                              alt="Preview"
-                              className="h-12 w-12 rounded object-cover"
+                              alt={`Project image ${index + 1}`}
+                              className="h-28 w-full object-cover"
                             />
-                            <span className="flex-1 truncate text-sm text-muted-foreground">
-                              {url}
-                            </span>
+
+                            <div className="absolute left-2 top-2 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
+                              {index === 0 ? "Cover" : `Image ${index + 1}`}
+                            </div>
+
                             <Button
                               type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeImage(url)}
+                              variant="destructive"
+                              size="icon"
+                              className="absolute right-2 top-2 h-7 w-7"
+                              onClick={() => removeImage(index)}
+                              disabled={isLoading}
                             >
                               <X className="h-4 w-4" />
                             </Button>
@@ -342,7 +332,7 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                     )}
                   </div>
                   <FormDescription>
-                    Image URLs for the project gallery.
+                    Upload images from your computer. The first image becomes the cover image.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

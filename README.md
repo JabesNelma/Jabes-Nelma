@@ -105,10 +105,14 @@ Create .env in project root (or update existing one):
     ADMIN_PASSWORD="Admin123!"
     ADMIN_NAME="Admin"
     JWT_SECRET="replace-with-long-random-secret"
+    NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY="your_imagekit_public_key"
+    NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT="https://ik.imagekit.io/your_imagekit_id"
+    IMAGEKIT_PRIVATE_KEY="your_imagekit_private_key"
 
 Notes:
 - DATABASE_URL is required
 - JWT_SECRET is strongly recommended (especially production)
+- `IMAGEKIT_PRIVATE_KEY` is server-side only and must not use `NEXT_PUBLIC_`
 
 ### 4. Generate Prisma Client + sync schema
 
