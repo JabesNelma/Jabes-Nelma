@@ -130,7 +130,6 @@ export default function LoginPage() {
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                           <Input
-                            placeholder="admin@example.com"
                             type="email"
                             className="pl-10"
                             {...field}
@@ -154,7 +153,6 @@ export default function LoginPage() {
                           <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                           <Input
                             type={showPassword ? "text" : "password"}
-                            placeholder="Enter your password"
                             className="pl-10 pr-10"
                             {...field}
                             disabled={isLoading}
