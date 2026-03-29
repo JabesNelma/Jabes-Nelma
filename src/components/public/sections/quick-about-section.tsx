@@ -80,17 +80,17 @@ export function QuickAboutSection({
         />
       </div>
 
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="layout-container relative z-10">
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          className="grid items-center gap-10 md:grid-cols-2"
         >
           <motion.div
             variants={itemVariants}
-            className="relative flex justify-center lg:justify-start"
+            className="relative flex justify-center"
           >
             <div className="relative">
               <motion.div
@@ -121,7 +121,7 @@ export function QuickAboutSection({
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-6 text-center md:text-left">
             <div>
               <p className="mb-4 text-sm font-medium uppercase tracking-[0.18em] text-sky-600/80">About Me</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
@@ -136,7 +136,7 @@ export function QuickAboutSection({
             <p className="text-muted-foreground leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bio || '' }} />
 
             {/* Quick Stats */}
-            <div className="flex flex-wrap gap-6 py-4">
+            <div className="flex flex-wrap justify-center gap-6 py-4 md:justify-start">
               {location && (
                 <motion.div 
                   className="flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-4 py-2"
@@ -168,7 +168,7 @@ export function QuickAboutSection({
 
             {/* Skills Tags */}
             {skills && skills.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                 {skills.slice(0, 6).map((skill, i) => (
                   <motion.div
                     key={skill}
@@ -193,6 +193,7 @@ export function QuickAboutSection({
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: 0.5 }}
+              className="flex justify-center md:justify-start"
             >
               <Button 
                 asChild 

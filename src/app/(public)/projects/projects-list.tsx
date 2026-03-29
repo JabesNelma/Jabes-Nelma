@@ -88,16 +88,17 @@ export function ProjectsList() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="border-b border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="layout-container py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            className="text-center"
           >
-            <h1 className="text-4xl font-bold text-foreground mb-4">
+            <h1 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
               Projects
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               A collection of projects I&apos;ve worked on, from web applications
               to creative experiments. Each project represents a unique challenge
               and learning experience.
@@ -107,7 +108,7 @@ export function ProjectsList() {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="layout-container py-16 md:py-20">
         {/* Featured Projects */}
         {featuredProjects.length > 0 && (
           <div className="mb-16">
@@ -115,11 +116,11 @@ export function ProjectsList() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-2xl font-semibold text-foreground mb-8"
+              className="mb-8 text-center text-2xl font-semibold text-foreground"
             >
               Featured Work
             </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featuredProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}
@@ -138,12 +139,12 @@ export function ProjectsList() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-2xl font-semibold text-foreground mb-8"
+              className="mb-8 text-center text-2xl font-semibold text-foreground"
             >
               Other Projects
             </motion.h2>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {(featuredProjects.length > 0 ? regularProjects : projects).map(
               (project, index) => (
                 <ProjectCard

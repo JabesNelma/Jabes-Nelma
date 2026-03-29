@@ -179,7 +179,7 @@ export function SkillsPreviewSection({ skills }: SkillsPreviewSectionProps) {
         />
       </div>
 
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="layout-container relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
@@ -203,7 +203,7 @@ export function SkillsPreviewSection({ skills }: SkillsPreviewSectionProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-50px' }}
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
               {skills.slice(0, 6).map((categoryData, index) => (
                 <CategoryCard key={categoryData.category} categoryData={categoryData} index={index} />

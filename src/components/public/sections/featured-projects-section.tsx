@@ -67,7 +67,7 @@ export function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionPro
         />
       </div>
 
-      <div className="container relative z-10 px-4 md:px-6">
+      <div className="layout-container relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
@@ -91,7 +91,7 @@ export function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionPro
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-50px' }}
-              className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
               {projects.slice(0, 3).map((project, index) => (
                 <motion.div key={project.id} variants={itemVariants}>

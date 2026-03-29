@@ -113,24 +113,25 @@ export function SkillsList() {
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b border-border/70">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="layout-container py-16 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            className="text-center"
           >
             <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-sky-600/80">Capabilities</p>
             <h1 className="text-4xl font-semibold tracking-tight text-foreground mb-4 sm:text-5xl">
               Skills & Technologies
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               A practical overview of the stack I use to design, build, and ship reliable digital products.
             </p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="layout-container py-16 md:py-20">
         <div className="space-y-14">
           {groupedBuckets.map((categoryData, categoryIndex) => (
             <motion.section
@@ -151,7 +152,7 @@ export function SkillsList() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {categoryData.skills.map((skill, skillIndex) => (
                   <SkillCard
                     key={skill.id}

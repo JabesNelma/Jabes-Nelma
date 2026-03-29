@@ -135,7 +135,7 @@ export default function AboutPage() {
             </motion.div>
           </div>
         ) : (
-          <div className="container px-4 py-14 md:px-6 md:py-16">
+          <div className="layout-container py-16 md:py-24 lg:py-28">
             {/* Back Link */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -155,7 +155,7 @@ export default function AboutPage() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="mx-auto max-w-5xl"
+              className="mx-auto"
             >
               {/* Profile Header */}
               <motion.div
@@ -244,7 +244,7 @@ export default function AboutPage() {
 
               {/* Bio Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="mb-4 text-2xl font-semibold tracking-tight">About Me</h2>
+                <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight">About Me</h2>
                 <div
                   className="prose prose-neutral max-w-none rounded-2xl border border-border/70 bg-card/60 p-6 text-muted-foreground shadow-[0_18px_40px_-34px_rgba(15,23,42,0.45)] dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: siteConfig.ownerBio || 'Passionate developer with a love for creating beautiful, functional web applications.' }}
@@ -253,7 +253,7 @@ export default function AboutPage() {
 
               {/* Skills Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="mb-4 text-2xl font-semibold tracking-tight" id="skills">Skills & Expertise</h2>
+                <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight" id="skills">Skills & Expertise</h2>
                 {allSkills.length > 0 ? (
                   <div className="flex flex-wrap gap-2 rounded-2xl border border-border/70 bg-card/60 p-5">
                     {allSkills.map((skill) => (
@@ -275,7 +275,7 @@ export default function AboutPage() {
 
               {/* Experience Section */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold mb-8">Work Experience</h2>
+                <h2 className="mb-8 text-center text-2xl font-semibold">Work Experience</h2>
                 <ExperienceTimeline experiences={experiences} />
               </motion.div>
             </motion.div>

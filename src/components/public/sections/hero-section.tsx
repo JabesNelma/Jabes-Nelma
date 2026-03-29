@@ -48,7 +48,7 @@ export function HeroSection({
   introduction = defaultProps.introduction,
 }: HeroSectionProps) {
   return (
-    <section className="relative flex min-h-[88vh] items-center justify-center overflow-hidden px-4 py-24 sm:px-6">
+    <section className="section-shell relative flex min-h-[88vh] items-center justify-center overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(22,163,74,0.12),transparent_40%),radial-gradient(circle_at_80%_18%,rgba(14,165,233,0.16),transparent_36%),radial-gradient(circle_at_50%_90%,rgba(245,158,11,0.1),transparent_45%)]" />
         <motion.div
@@ -61,7 +61,7 @@ export function HeroSection({
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(248,250,252,0.08)_45%,var(--background)_100%)]" />
       </div>
 
-      <div className="mx-auto w-full max-w-5xl">
+      <div className="layout-container">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -70,7 +70,7 @@ export function HeroSection({
         >
           <motion.h1
             variants={itemVariants}
-            className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            className="text-balance text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Hi, I&apos;m{' '}
             <span className="bg-[linear-gradient(100deg,#0ea5e9_0%,#14b8a6_50%,#f59e0b_100%)] bg-clip-text text-transparent">

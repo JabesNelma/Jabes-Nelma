@@ -54,7 +54,7 @@ export function PublicFooter() {
 
   return (
     <footer className="border-t bg-muted/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="layout-container py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright */}
           <div className="text-sm text-muted-foreground">
