@@ -13,6 +13,7 @@ interface Project {
   title: string
   description: string
   content: string | null
+  coverImage: string | null
   images: string | null
   techStack: string | null
   githubUrl: string | null

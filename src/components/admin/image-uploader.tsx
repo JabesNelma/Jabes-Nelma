@@ -23,21 +23,8 @@ export function ImageUploader({
   const fileInputRef = React.useRef<HTMLInputElement | null>(null)
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-
-    if (!file) {
-      return
-    }
-
-    if (!file.type.startsWith("image/")) {
-      setError("File tidak valid. Pilih file gambar (JPG, PNG, WEBP, dll).")
-      event.target.value = ""
-      return
-    }
-
-    if (file.size > maxFileSizeMB * 1024 * 1024) {
-      setError(`Ukuran file terlalu besar. Maksimal ${maxFileSizeMB}MB.`)
-      event.target.value = ""
+    const files = Array.from(event.target.files || [])
+    if (files.length === 0) {
       return
     }
 
@@ -45,10 +32,20 @@ export function ImageUploader({
     setIsUploading(true)
 
     try {
-      // Required flow: select file -> compress -> upload -> receive URL -> send to parent.
-      const compressedFile = await compressImage(file)
-      const uploadedUrl = await uploadImageToImageKit(compressedFile)
-      onUpload(uploadedUrl)
+      for (const file of files) {
+        if (!file.type.startsWith("image/")) {
+          throw new Error("File tidak valid. Pilih file gambar (JPG, PNG, WEBP, dll).")
+        }
+
+        if (file.size > maxFileSizeMB * 1024 * 1024) {
+          throw new Error(`Ukuran file terlalu besar. Maksimal ${maxFileSizeMB}MB.`)
+        }
+
+        // Required flow: select file -> compress -> upload -> receive URL -> send to parent.
+        const compressedFile = await compressImage(file)
+        const uploadedUrl = await uploadImageToImageKit(compressedFile)
+        onUpload(uploadedUrl)
+      }
     } catch (uploadError) {
       setError(
         uploadError instanceof Error
@@ -67,6 +64,7 @@ export function ImageUploader({
         ref={fileInputRef}
         type="file"
         accept="image/*"
+        multiple
         onChange={handleFileChange}
         disabled={disabled || isUploading}
         className="hidden"

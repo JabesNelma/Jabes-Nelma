@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 
+function parseImages(value: string | null): string[] {
+  if (!value) return []
+
+  try {
+    const parsed = JSON.parse(value)
+    if (Array.isArray(parsed)) {
+      return parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0)
+    }
+  } catch {
+    // Ignore malformed JSON and fallback to empty list.
+  }
+
+  return []
+}
+
 // GET /api/public/projects/[id] - Get single published project
 export async function GET(
   request: NextRequest,
@@ -24,9 +39,16 @@ export async function GET(
     }
 
     // Parse JSON fields
+    const images = parseImages(project.images)
+    const coverImage = project.coverImage || images[0] || null
+    const normalizedImages = coverImage && !images.includes(coverImage)
+      ? [coverImage, ...images]
+      : images
+
     const parsedProject = {
       ...project,
-      images: project.images ? JSON.parse(project.images) : [],
+      coverImage,
+      images: normalizedImages,
       techStack: project.techStack ? JSON.parse(project.techStack) : [],
     }
 

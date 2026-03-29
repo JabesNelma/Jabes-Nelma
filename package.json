@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
     "db:seed": "prisma db seed",
-    "db:migrate:legacy": "tsx prisma/migrate-legacy-data.ts"
+    "db:migrate:legacy": "tsx prisma/migrate-legacy-data.ts",
+    "db:backfill:project-cover": "tsx prisma/backfill-project-cover-image.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

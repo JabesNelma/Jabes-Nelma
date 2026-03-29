@@ -16,6 +16,7 @@ interface Project {
   id: string
   title: string
   description: string
+  coverImage: string | null
   images: string[]
   techStack: string[]
   githubUrl?: string | null
@@ -53,7 +54,7 @@ const itemVariants = {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = React.useState(false)
-  const coverImage = project.images?.[0] || null
+  const coverImage = project.coverImage || project.images?.[0] || null
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-50px" })
 

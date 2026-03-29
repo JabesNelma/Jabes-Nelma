@@ -1,6 +1,29 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 
+function parseImages(value: string | null): string[] {
+  if (!value) return []
+
+  try {
+    const parsed = JSON.parse(value)
+    if (Array.isArray(parsed)) {
+      return parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0)
+    }
+  } catch {
+    // Ignore malformed JSON and fallback to empty list.
+  }
+
+  return []
+}
+
+function normalizeImages(images: unknown): string[] {
+  if (!Array.isArray(images)) {
+    return []
+  }
+
+  return images.filter((image): image is string => typeof image === "string" && image.trim().length > 0)
+}
+
 // GET /api/admin/projects/[id] - Get single project
 export async function GET(
   request: NextRequest,
@@ -17,7 +40,19 @@ export async function GET(
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
-    return NextResponse.json({ project })
+    const parsedImages = parseImages(project.images)
+    const coverImage = project.coverImage || parsedImages[0] || null
+    const images = coverImage && !parsedImages.includes(coverImage)
+      ? [coverImage, ...parsedImages]
+      : parsedImages
+
+    return NextResponse.json({
+      project: {
+        ...project,
+        coverImage,
+        images: JSON.stringify(images),
+      },
+    })
   } catch (error) {
     console.error("Error fetching project:", error)
     return NextResponse.json(
@@ -35,7 +70,19 @@ export async function PUT(
   try {
     const { id } = await params
     const body = await request.json()
-    const { title, description, content, images, techStack, githubUrl, liveUrl, featured, status, order } = body
+    const {
+      title,
+      description,
+      content,
+      images,
+      coverImage,
+      techStack,
+      githubUrl,
+      liveUrl,
+      featured,
+      status,
+      order,
+    } = body
 
     // Check if project exists
     const existingProject = await db.project.findUnique({
@@ -46,6 +93,21 @@ export async function PUT(
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
+    const existingImages = parseImages(existingProject.images)
+    const normalizedImages = normalizeImages(images)
+
+    const fallbackCover = existingProject.coverImage || existingImages[0] || ""
+    const normalizedCover = typeof coverImage === "string" ? coverImage.trim() : fallbackCover
+
+    if (!normalizedCover) {
+      return NextResponse.json({ error: "Cover image is required" }, { status: 400 })
+    }
+
+    const baseImages = normalizedImages.length > 0 ? normalizedImages : existingImages
+    const finalImages = baseImages.includes(normalizedCover)
+      ? baseImages
+      : [normalizedCover, ...baseImages]
+
     // Update project
     const project = await db.project.update({
       where: { id },
@@ -53,7 +115,8 @@ export async function PUT(
         title,
         description,
         content: content || null,
-        images: images ? JSON.stringify(images) : null,
+        coverImage: normalizedCover,
+        images: JSON.stringify(finalImages),
         techStack: techStack ? JSON.stringify(techStack) : null,
         githubUrl: githubUrl || null,
         liveUrl: liveUrl || null,

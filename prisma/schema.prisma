@@ -37,6 +37,7 @@ model Project {
   title       String
   description String   @db.Text
   content     String?  @db.Text // Detailed description in markdown
+  coverImage  String   @db.Text // Primary thumbnail image URL
   images      String?  @db.Text // JSON array of image URLs
   techStack   String?  @db.Text // JSON array of technologies
   githubUrl   String?  @db.Text

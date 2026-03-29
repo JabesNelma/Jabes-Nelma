@@ -3,16 +3,16 @@ import { notFound } from "next/navigation"
 import { ProjectDetail } from "./project-detail"
 
 interface PageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params
+  const { slug } = await params
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/public/projects/${id}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/public/projects/${slug}`,
       { cache: "no-store" }
     )
 
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: project.title,
         description: project.description,
-        images: project.images?.[0] ? [project.images[0]] : [],
+        images: project.coverImage ? [project.coverImage] : project.images?.[0] ? [project.images[0]] : [],
       },
     }
   } catch {
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
-  const { id } = await params
+  const { slug } = await params
 
   // Fetch project data server-side
   let project = null
@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/public/projects/${id}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/public/projects/${slug}`,
       { cache: "no-store" }
     )
 

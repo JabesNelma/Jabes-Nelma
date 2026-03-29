@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 
+function normalizeImages(images: unknown): string[] {
+  if (!Array.isArray(images)) {
+    return []
+  }
+
+  return images.filter((image): image is string => typeof image === "string" && image.trim().length > 0)
+}
+
 // GET /api/admin/projects - List all projects with filtering
 export async function GET(request: NextRequest) {
   try {
@@ -67,7 +75,18 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { title, description, content, images, techStack, githubUrl, liveUrl, featured, status } = body
+    const {
+      title,
+      description,
+      content,
+      images,
+      coverImage,
+      techStack,
+      githubUrl,
+      liveUrl,
+      featured,
+      status,
+    } = body
 
     // Validate required fields
     if (!title || !description) {
@@ -76,6 +95,20 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    const normalizedImages = normalizeImages(images)
+    const normalizedCover = typeof coverImage === "string" ? coverImage.trim() : ""
+
+    if (!normalizedCover) {
+      return NextResponse.json(
+        { error: "Cover image is required" },
+        { status: 400 }
+      )
+    }
+
+    const finalImages = normalizedImages.includes(normalizedCover)
+      ? normalizedImages
+      : [normalizedCover, ...normalizedImages]
 
     // Get the max order for new project
     const maxOrderProject = await db.project.findFirst({
@@ -89,7 +122,8 @@ export async function POST(request: NextRequest) {
         title,
         description,
         content: content || null,
-        images: images ? JSON.stringify(images) : null,
+        coverImage: normalizedCover,
+        images: JSON.stringify(finalImages),
         techStack: techStack ? JSON.stringify(techStack) : null,
         githubUrl: githubUrl || null,
         liveUrl: liveUrl || null,

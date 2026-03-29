@@ -71,7 +71,7 @@ async function parseContentFile(filePath: string): Promise<Content> {
   
   // Since regex is complex, let's use a simpler approach: dynamically import
   // We'll use import() which can handle TypeScript context
-  const { content } = await import('../migration-source/content.ts')
+  const { content } = await import('../migration-source/content')
   return content as Content
 }
 
@@ -165,13 +165,16 @@ async function migrateData() {
       if (!existing) {
         const techStack = project.tech || []
         const categories = project.category || ['Other']
+        const images = [project.image].filter((image): image is string => Boolean(image))
+        const coverImage = images[0] || 'https://via.placeholder.com/1200x675?text=Project+Cover'
 
-        await prisma.project.create({
+        await (prisma.project as any).create({
           data: {
             title: project.title,
             description: project.description || project.subtitle || '',
             content: project.description || '',
-            images: JSON.stringify([project.image || '']),
+            coverImage,
+            images: JSON.stringify(images),
             techStack: JSON.stringify(techStack),
             githubUrl: project.repo,
             liveUrl: project.demo,
