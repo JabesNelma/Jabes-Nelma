@@ -16,6 +16,21 @@ function parseImages(value: string | null): string[] {
   return []
 }
 
+function parseTechStack(value: string | null): string[] {
+  if (!value) return []
+
+  try {
+    const parsed = JSON.parse(value)
+    if (Array.isArray(parsed)) {
+      return parsed.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    }
+  } catch {
+    // Ignore malformed JSON and fallback to empty list.
+  }
+
+  return []
+}
+
 export async function GET() {
   try {
     // Get published projects: featured first, then recent ones
@@ -29,18 +44,6 @@ export async function GET() {
         { createdAt: 'desc' },
       ],
       take: 6,
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        coverImage: true,
-        images: true,
-        techStack: true,
-        githubUrl: true,
-        liveUrl: true,
-        createdAt: true,
-        featured: true,
-      },
     })
 
     // Parse JSON fields
@@ -52,10 +55,16 @@ export async function GET() {
         : images
 
       return {
-        ...project,
+        id: project.id,
+        title: project.title,
+        description: project.description,
+        githubUrl: project.githubUrl,
+        liveUrl: project.liveUrl,
+        createdAt: project.createdAt,
+        featured: project.featured,
         coverImage,
         images: normalizedImages,
-        techStack: project.techStack ? JSON.parse(project.techStack) : [],
+        techStack: parseTechStack(project.techStack),
       }
     })
 
