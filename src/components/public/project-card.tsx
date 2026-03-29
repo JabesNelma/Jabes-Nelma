@@ -1,11 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react"
+import { ArrowRight, ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { getOptimizedImageUrl } from "@/lib/image-url"
 
 interface Project {
@@ -33,6 +34,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35, delay: index * 0.05 }}
+      whileHover={{ y: -4 }}
       className="h-full"
     >
       <Card
@@ -45,16 +47,20 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             router.push(`/projects/${project.id}`)
           }
         }}
-        className="group h-full cursor-pointer overflow-hidden border-border/70 bg-card"
+        className="group relative h-full cursor-pointer overflow-hidden border-border/70 bg-card/95 shadow-[0_14px_28px_-22px_rgba(2,6,23,0.45)] transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/40 hover:shadow-[0_20px_40px_-24px_rgba(14,165,233,0.45)]"
       >
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-500 via-teal-500 to-amber-500 opacity-0 transition-opacity duration-300 group-hover:opacity-[0.09]" />
+        <div className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full bg-gradient-to-br from-sky-500 to-teal-500 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-20" />
+
         <div className="relative aspect-[16/10] overflow-hidden bg-muted">
           {project.coverImage ? (
             <Image
               src={getOptimizedImageUrl(project.coverImage, 960, 78)}
               alt={project.title}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
@@ -62,11 +68,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             </div>
           )}
 
-          <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-xs font-medium text-white">
+            <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
               View Details
-              <ArrowUpRight className="h-3.5 w-3.5" />
+              <ArrowRight className="h-3.5 w-3.5" />
             </span>
           </div>
 
@@ -75,10 +81,10 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           )}
         </div>
 
-        <CardContent className="space-y-4 p-4">
+        <CardContent className="space-y-4 p-5">
           <div>
-            <h3 className="line-clamp-1 text-lg font-semibold">{project.title}</h3>
-            <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{project.description}</p>
+            <h3 className="line-clamp-1 text-lg font-semibold tracking-tight">{project.title}</h3>
+            <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
           </div>
 
           <div className="flex flex-wrap gap-1.5">
@@ -88,9 +94,33 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               </Badge>
             ))}
             {project.techStack?.length > 4 && (
-              <Badge variant="outline" className="text-xs font-normal">
-                +{project.techStack.length - 4}
-              </Badge>
+              <HoverCard openDelay={120} closeDelay={80}>
+                <HoverCardTrigger asChild>
+                  <Badge
+                    variant="outline"
+                    className="cursor-default text-xs font-normal"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    +{project.techStack.length - 4}
+                  </Badge>
+                </HoverCardTrigger>
+                <HoverCardContent
+                  align="start"
+                  className="w-72"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Full Tech Stack
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.techStack.map((tech) => (
+                      <Badge key={tech} variant="secondary" className="text-xs font-normal">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
             )}
           </div>
 

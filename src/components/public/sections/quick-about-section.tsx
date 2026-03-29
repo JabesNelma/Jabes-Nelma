@@ -4,11 +4,12 @@ import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight, MapPin, Briefcase, GraduationCap, Code2, Sparkles } from 'lucide-react'
+import { ArrowRight, MapPin, Briefcase, GraduationCap, Code2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useRef } from 'react'
+import { getOptimizedImageUrl } from '@/lib/image-url'
 
 interface QuickAboutSectionProps {
   name?: string
@@ -69,29 +70,13 @@ export function QuickAboutSection({
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background Gradients */}
+    <section className="section-shell relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(14,165,233,0.08),transparent_35%),radial-gradient(circle_at_85%_75%,rgba(20,184,166,0.08),transparent_38%)]" />
         <motion.div
-          animate={{ 
-            rotate: [0, 180, 360],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute -right-20 top-1/4 w-96 h-96 opacity-30"
-          style={{
-            background: 'conic-gradient(from 0deg, transparent, rgba(120, 119, 198, 0.2), transparent, rgba(255, 119, 115, 0.2), transparent)',
-            borderRadius: '50%',
-            filter: 'blur(40px)',
-          }}
-        />
-        <motion.div
-          animate={{ 
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
+          animate={{ x: [0, 20, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -left-40 bottom-0 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"
+          className="absolute -right-24 top-1/3 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
         />
       </div>
 
@@ -103,60 +88,28 @@ export function QuickAboutSection({
           animate={isInView ? "visible" : "hidden"}
           className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
         >
-          {/* Profile Image */}
           <motion.div
             variants={itemVariants}
             className="relative flex justify-center lg:justify-start"
           >
             <div className="relative">
-              {/* Decorative Rings */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.3 }}
-                className="absolute -inset-8 rounded-full border-2 border-dashed border-primary/20"
-                style={{ animation: 'spin 20s linear infinite' }}
-              />
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.4 }}
-                className="absolute -inset-16 rounded-full border border-purple-500/10"
-              />
-              
-              {/* Gradient Orbs */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                transition={{ delay: 0.5 }}
-                className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-r from-primary to-purple-500 rounded-full blur-2xl opacity-30"
-              />
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                transition={{ delay: 0.6 }}
-                className="absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full blur-2xl opacity-20"
-              />
-              
-              {/* Image Container */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.015 }}
                 transition={{ duration: 0.3 }}
-                className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-3xl overflow-hidden border-4 border-background shadow-2xl bg-gradient-to-br from-primary/20 via-purple-500/10 to-pink-500/20"
+                className="relative h-64 w-64 overflow-hidden rounded-3xl border-4 border-background bg-gradient-to-br from-sky-500/15 via-teal-500/10 to-emerald-500/15 shadow-2xl sm:h-80 sm:w-80"
               >
                 {profileImage ? (
                   <Image
-                    src={profileImage}
+                    src={getOptimizedImageUrl(profileImage, 900, 82)}
                     alt={name || 'Profile'}
                     fill
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/30 via-purple-500/20 to-pink-500/30">
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sky-500/20 via-teal-500/20 to-emerald-500/20">
                     <motion.div
                       animate={{ 
-                        scale: [1, 1.05, 1],
-                        rotate: [0, 5, 0, -5, 0],
+                        scale: [1, 1.04, 1],
                       }}
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     >
@@ -164,32 +117,16 @@ export function QuickAboutSection({
                     </motion.div>
                   </div>
                 )}
-                
-                {/* Shimmer Effect */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
-                />
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Content */}
           <motion.div variants={itemVariants} className="space-y-6">
             <div>
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-primary/10 via-purple-500/10 to-pink-500/10 border border-primary/20 text-sm font-medium mb-4"
-              >
-                <Sparkles className="w-4 h-4 text-primary" />
-                About Me
-              </motion.span>
+              <p className="mb-4 text-sm font-medium uppercase tracking-[0.18em] text-sky-600/80">About Me</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
                 Hello, I&apos;m{' '}
-                <span className="bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-[linear-gradient(100deg,#0ea5e9_0%,#14b8a6_55%,#f59e0b_100%)] bg-clip-text text-transparent">
                   {name?.split(' ')[0] || 'Jabes'}
                 </span>
               </h2>
@@ -202,28 +139,28 @@ export function QuickAboutSection({
             <div className="flex flex-wrap gap-6 py-4">
               {location && (
                 <motion.div 
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/5 to-purple-500/5 border border-primary/10"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-4 py-2"
+                  whileHover={{ scale: 1.03, y: -2 }}
                 >
-                  <MapPin className="h-4 w-4 text-primary" />
+                  <MapPin className="h-4 w-4 text-sky-600" />
                   <span className="text-sm font-medium">{location}</span>
                 </motion.div>
               )}
               {experience && (
                 <motion.div 
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/5 to-pink-500/5 border border-purple-500/10"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2"
+                  whileHover={{ scale: 1.03, y: -2 }}
                 >
-                  <Briefcase className="h-4 w-4 text-purple-500" />
+                  <Briefcase className="h-4 w-4 text-emerald-600" />
                   <span className="text-sm font-medium">{experience}</span>
                 </motion.div>
               )}
               {education && (
                 <motion.div 
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/5 to-orange-500/5 border border-pink-500/10"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2"
+                  whileHover={{ scale: 1.03, y: -2 }}
                 >
-                  <GraduationCap className="h-4 w-4 text-pink-500" />
+                  <GraduationCap className="h-4 w-4 text-amber-600" />
                   <span className="text-sm font-medium">{education}</span>
                 </motion.div>
               )}
@@ -242,7 +179,7 @@ export function QuickAboutSection({
                   >
                     <Badge
                       variant="secondary"
-                      className="px-4 py-1.5 bg-gradient-to-r from-secondary to-secondary/80 hover:from-primary/20 hover:to-purple-500/20 transition-all duration-300 cursor-default"
+                      className="cursor-default border border-border/70 bg-background/80 px-4 py-1.5 transition-colors duration-300 hover:border-sky-500/30"
                     >
                       {skill}
                     </Badge>
@@ -260,7 +197,7 @@ export function QuickAboutSection({
               <Button 
                 asChild 
                 size="lg" 
-                className="group bg-gradient-to-r from-primary via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105"
+                className="group bg-[linear-gradient(120deg,#0f766e,#0ea5e9)] text-primary-foreground shadow-[0_12px_24px_-12px_rgba(14,165,233,0.55)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_30px_-14px_rgba(14,165,233,0.65)]"
               >
                 <Link href="/about">
                   Learn More About Me

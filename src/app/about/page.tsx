@@ -13,6 +13,7 @@ import { SkillsPreviewSection } from '@/components/public/sections/skills-previe
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { getOptimizedImageUrl } from '@/lib/image-url'
 
 interface Experience {
   id: string
@@ -134,7 +135,7 @@ export default function AboutPage() {
             </motion.div>
           </div>
         ) : (
-          <div className="container px-4 md:px-6 py-12">
+          <div className="container px-4 py-14 md:px-6 md:py-16">
             {/* Back Link */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -154,12 +155,12 @@ export default function AboutPage() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="max-w-4xl mx-auto"
+              className="mx-auto max-w-5xl"
             >
               {/* Profile Header */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12"
+                className="mb-14 flex flex-col items-center gap-8 rounded-2xl border border-border/70 bg-card/70 p-6 shadow-[0_20px_40px_-32px_rgba(15,23,42,0.5)] backdrop-blur md:flex-row md:items-start md:p-8"
               >
                 {/* Profile Image */}
                 <div className="relative flex-shrink-0">
@@ -167,10 +168,10 @@ export default function AboutPage() {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-background shadow-xl"
+                    className="h-40 w-40 overflow-hidden rounded-2xl border-4 border-background shadow-xl md:h-48 md:w-48"
                   >
                     <Image
-                      src={siteConfig.ownerProfileImage || '/12.png'}
+                      src={siteConfig.ownerProfileImage ? getOptimizedImageUrl(siteConfig.ownerProfileImage, 700, 82) : '/12.png'}
                       alt={siteConfig.ownerName || 'Profile'}
                       fill
                       className="object-cover"
@@ -182,13 +183,13 @@ export default function AboutPage() {
                 <div className="text-center md:text-left flex-1">
                   <motion.h1
                     variants={itemVariants}
-                    className="text-3xl sm:text-4xl font-bold tracking-tight mb-2"
+                    className="mb-2 text-3xl font-semibold tracking-tight sm:text-4xl"
                   >
                     {siteConfig.ownerName || 'Jabes Nelma'}
                   </motion.h1>
                   <motion.p
                     variants={itemVariants}
-                    className="text-lg text-primary font-medium mb-4"
+                    className="mb-4 text-lg font-medium text-sky-600 dark:text-sky-400"
                   >
                     {siteConfig.ownerTitle || 'Full Stack Developer'}
                   </motion.p>
@@ -243,23 +244,23 @@ export default function AboutPage() {
 
               {/* Bio Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+                <h2 className="mb-4 text-2xl font-semibold tracking-tight">About Me</h2>
                 <div
-                  className="text-muted-foreground leading-relaxed"
+                  className="prose prose-neutral max-w-none rounded-2xl border border-border/70 bg-card/60 p-6 text-muted-foreground shadow-[0_18px_40px_-34px_rgba(15,23,42,0.45)] dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: siteConfig.ownerBio || 'Passionate developer with a love for creating beautiful, functional web applications.' }}
                 />
               </motion.div>
 
               {/* Skills Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="text-2xl font-semibold mb-4" id="skills">Skills & Expertise</h2>
+                <h2 className="mb-4 text-2xl font-semibold tracking-tight" id="skills">Skills & Expertise</h2>
                 {allSkills.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 rounded-2xl border border-border/70 bg-card/60 p-5">
                     {allSkills.map((skill) => (
                       <Badge
                         key={skill.id}
                         variant="secondary"
-                        className="px-3 py-1.5 text-sm"
+                        className="border border-border/70 bg-background/80 px-3 py-1.5 text-sm"
                       >
                         {skill.name}
                       </Badge>

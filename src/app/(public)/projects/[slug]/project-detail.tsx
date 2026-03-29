@@ -12,7 +12,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -56,6 +56,34 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
   const galleryImages = allImages.filter((img) => img !== coverImage)
   const visibleGallery = galleryImages.slice(0, visibleCount)
 
+  useEffect(() => {
+    if (activeImageIndex === null) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveImageIndex(null)
+        return
+      }
+
+      if (event.key === "ArrowLeft") {
+        setActiveImageIndex((current) => {
+          if (current === null) return null
+          return current === 0 ? allImages.length - 1 : current - 1
+        })
+      }
+
+      if (event.key === "ArrowRight") {
+        setActiveImageIndex((current) => {
+          if (current === null) return null
+          return current === allImages.length - 1 ? 0 : current + 1
+        })
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [activeImageIndex, allImages.length])
+
   if (error) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -86,7 +114,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl space-y-14 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl space-y-16 px-4 py-10 sm:px-6 lg:px-8">
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,14 +122,14 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
           className="space-y-6"
         >
           <div className="space-y-3">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{project.title}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">{project.title}</h1>
             <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               {project.description}
             </p>
           </div>
 
           {coverImage && (
-            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border/70 bg-muted shadow-[0_30px_50px_-35px_rgba(2,6,23,0.65)]">
               <Image
                 src={getOptimizedImageUrl(coverImage, 1600, 80)}
                 alt={project.title}
@@ -110,6 +138,11 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
                 priority
                 sizes="100vw"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                <p className="text-sm font-medium uppercase tracking-[0.16em] text-white/80">Project Overview</p>
+                <p className="mt-2 max-w-2xl text-sm text-white/90 sm:text-base">A closer look at the product goals, implementation decisions, and final user experience.</p>
+              </div>
             </div>
           )}
         </motion.section>
@@ -133,7 +166,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
                       key={`${image}-${index}`}
                       type="button"
                       onClick={() => setActiveImageIndex(realIndex)}
-                      className="group relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted text-left"
+                      className="group relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted text-left shadow-[0_10px_24px_-18px_rgba(15,23,42,0.55)] transition-all duration-300 hover:scale-[1.01] hover:border-sky-500/40"
                     >
                       <Image
                         src={getOptimizedImageUrl(image, 900, 78)}
@@ -143,6 +176,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
                         loading="lazy"
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
                     </button>
                   )
                 })}
@@ -228,7 +262,13 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
       </div>
 
       {activeImageIndex !== null && allImages[activeImageIndex] && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setActiveImageIndex(null)}
+        >
           <button
             type="button"
             onClick={() => setActiveImageIndex(null)}
@@ -248,6 +288,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
                     return current === 0 ? allImages.length - 1 : current - 1
                   })
                 }
+                onClickCapture={(event) => event.stopPropagation()}
                 className="absolute left-4 rounded-full border border-white/30 p-2 text-white transition-colors hover:bg-white/10"
                 aria-label="Previous image"
               >
@@ -261,6 +302,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
                     return current === allImages.length - 1 ? 0 : current + 1
                   })
                 }
+                onClickCapture={(event) => event.stopPropagation()}
                 className="absolute right-4 rounded-full border border-white/30 p-2 text-white transition-colors hover:bg-white/10"
                 aria-label="Next image"
               >
@@ -269,7 +311,10 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
             </>
           )}
 
-          <div className="relative h-[80vh] w-full max-w-6xl overflow-hidden rounded-xl">
+          <div
+            className="relative h-[80vh] w-full max-w-6xl overflow-hidden rounded-xl"
+            onClick={(event) => event.stopPropagation()}
+          >
             <Image
               src={getOptimizedImageUrl(allImages[activeImageIndex], 1800, 82)}
               alt={`${project.title} lightbox ${activeImageIndex + 1}`}
@@ -279,7 +324,7 @@ export function ProjectDetail({ project, error }: ProjectDetailProps) {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   )

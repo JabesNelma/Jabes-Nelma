@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
-// Use system fonts instead of Google Fonts (better with Turbopack)
-const systemFontStack = 'system-ui, -apple-system, sans-serif';
-const monoFontStack = '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace';
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -37,20 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <style>{`
-          :root {
-            --font-geist-sans: ${systemFontStack};
-            --font-geist-mono: ${monoFontStack};
-          }
-        `}</style>
-      </head>
-      <body
-        className="antialiased bg-background text-foreground"
-        style={{
-          fontFamily: systemFontStack,
-        } as React.CSSProperties}
-      >
+      <body className={`${manrope.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

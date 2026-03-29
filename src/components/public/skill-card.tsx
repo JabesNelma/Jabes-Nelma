@@ -20,16 +20,16 @@ interface SkillCardProps {
 // Category gradient colors
 const categoryGradients: Record<string, { bg: string; text: string; border: string; gradient: string }> = {
   Frontend: { 
-    bg: "bg-emerald-500/10", 
-    text: "text-emerald-600 dark:text-emerald-400", 
-    border: "border-emerald-500/20",
-    gradient: "from-emerald-500 to-teal-500"
+    bg: "bg-sky-500/10", 
+    text: "text-sky-600 dark:text-sky-400", 
+    border: "border-sky-500/25",
+    gradient: "from-sky-500 to-cyan-500"
   },
   Backend: { 
-    bg: "bg-violet-500/10", 
-    text: "text-violet-600 dark:text-violet-400", 
-    border: "border-violet-500/20",
-    gradient: "from-violet-500 to-purple-500"
+    bg: "bg-emerald-500/10", 
+    text: "text-emerald-600 dark:text-emerald-400", 
+    border: "border-emerald-500/25",
+    gradient: "from-emerald-500 to-teal-500"
   },
   Database: { 
     bg: "bg-orange-500/10", 
@@ -106,23 +106,20 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
       animate={isInView ? "visible" : "hidden"}
       transition={{ delay: index * 0.05 }}
       whileHover={{ 
-        y: -4,
-        scale: 1.02,
+        y: -3,
+        scale: 1.01,
         transition: { duration: 0.2 }
       }}
       className="group relative"
     >
-      {/* Gradient Background on Hover */}
       <div className={`absolute inset-0 bg-gradient-to-br ${categoryStyle.gradient} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-500`} />
       
-      <div className="relative p-5 rounded-xl border border-border/50 hover:border-primary/30 bg-gradient-to-br from-card via-card/95 to-card/90 hover:shadow-lg transition-all duration-300 overflow-hidden">
-        {/* Decorative Corner Gradient */}
-        <div className={`absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br ${categoryStyle.gradient} opacity-0 group-hover:opacity-20 rounded-full blur-2xl transition-opacity duration-500`} />
+      <div className="relative overflow-hidden rounded-xl border border-border/70 bg-card/95 p-5 shadow-[0_12px_24px_-20px_rgba(2,6,23,0.45)] transition-all duration-300 hover:border-sky-500/30 hover:shadow-[0_18px_30px_-20px_rgba(14,165,233,0.4)]">
+        <div className={`absolute -top-10 -right-10 h-24 w-24 rounded-full bg-gradient-to-br ${categoryStyle.gradient} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-15`} />
         
         <div className="relative z-10">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
-              {/* Icon */}
               <motion.div 
                 className={`w-10 h-10 rounded-lg ${categoryStyle.bg} flex items-center justify-center relative overflow-hidden`}
                 whileHover={{ rotate: 5 }}
@@ -137,13 +134,11 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
                 )}
               </motion.div>
 
-              {/* Name */}
-              <h3 className="font-semibold text-foreground group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-purple-500 group-hover:to-pink-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+              <h3 className="font-semibold text-foreground transition-colors duration-300 group-hover:text-foreground">
                 {skill.name}
               </h3>
             </div>
 
-            {/* Proficiency percentage */}
             <motion.span 
               className="text-sm font-bold text-muted-foreground"
               initial={{ opacity: 0 }}
@@ -154,10 +149,8 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
             </motion.span>
           </div>
 
-          {/* Progress Bar */}
           <div className="mb-4">
             <div className="h-2.5 bg-muted/50 rounded-full overflow-hidden relative">
-              {/* Animated Background */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
               <motion.div
                 className={`h-full rounded-full bg-gradient-to-r ${getProgressGradient(skill.proficiency)} relative overflow-hidden`}
@@ -165,17 +158,15 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
                 animate={isInView ? { width: `${skill.proficiency}%` } : { width: 0 }}
                 transition={{ duration: 1, delay: 0.2 + index * 0.05, ease: "easeOut" }}
               >
-                {/* Shimmer Effect */}
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                   animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
                 />
               </motion.div>
             </div>
           </div>
 
-          {/* Footer with category and level */}
           <div className="flex items-center justify-between">
             <Badge
               variant="outline"

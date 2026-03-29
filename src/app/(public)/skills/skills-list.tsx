@@ -18,6 +18,14 @@ interface SkillCategory {
   skills: Skill[]
 }
 
+const bucketOrder = ["Frontend", "Backend", "Tools"]
+
+function normalizeCategory(category: string) {
+  if (category === "Frontend") return "Frontend"
+  if (category === "Backend") return "Backend"
+  return "Tools"
+}
+
 export function SkillsList() {
   const [categories, setCategories] = useState<SkillCategory[]>([])
   const [loading, setLoading] = useState(true)
@@ -81,54 +89,61 @@ export function SkillsList() {
     )
   }
 
-  // Category icons
+  const groupedBuckets = bucketOrder
+    .map((bucket) => {
+      const skills = categories
+        .flatMap((categoryData) =>
+          normalizeCategory(categoryData.category) === bucket ? categoryData.skills : []
+        )
+        .sort((a, b) => b.proficiency - a.proficiency)
+
+      return {
+        category: bucket,
+        skills,
+      }
+    })
+    .filter((bucket) => bucket.skills.length > 0)
+
   const categoryIcons: Record<string, string> = {
-    Frontend: "🎨",
-    Backend: "⚙️",
-    Database: "🗄️",
-    DevOps: "🚀",
-    Tools: "🛠️",
-    Other: "📦",
+    Frontend: "UI",
+    Backend: "API",
+    Tools: "OPS",
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border">
+      <div className="border-b border-border/70">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl font-bold text-foreground mb-4">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-sky-600/80">Capabilities</p>
+            <h1 className="text-4xl font-semibold tracking-tight text-foreground mb-4 sm:text-5xl">
               Skills & Technologies
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              A comprehensive overview of my technical skills and the
-              technologies I work with. Proficiency levels reflect my hands-on
-              experience and depth of knowledge.
+              A practical overview of the stack I use to design, build, and ship reliable digital products.
             </p>
           </motion.div>
         </div>
       </div>
 
-      {/* Skills by Category */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-12">
-          {categories.map((categoryData, categoryIndex) => (
+        <div className="space-y-14">
+          {groupedBuckets.map((categoryData, categoryIndex) => (
             <motion.section
               key={categoryData.category}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
             >
-              {/* Category Header */}
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-2xl">
-                  {categoryIcons[categoryData.category] || "📦"}
+                <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border border-sky-500/20 bg-sky-500/10 px-2 text-xs font-semibold tracking-widest text-sky-700 dark:text-sky-300">
+                  {categoryIcons[categoryData.category] || "GEN"}
                 </span>
-                <h2 className="text-2xl font-semibold text-foreground">
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
                   {categoryData.category}
                 </h2>
                 <span className="text-sm text-muted-foreground ml-2">
@@ -136,7 +151,6 @@ export function SkillsList() {
                 </span>
               </div>
 
-              {/* Skills Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categoryData.skills.map((skill, skillIndex) => (
                   <SkillCard
