@@ -7,6 +7,7 @@ import { ArrowRight, Database as DatabaseIcon, Globe, Wrench, Cpu, Layers, Serve
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { SectionHeader } from '@/components/public/system/section-header'
 import { cn } from '@/lib/utils'
 import { useRef } from 'react'
 
@@ -185,15 +186,13 @@ export function SkillsPreviewSection({ skills }: SkillsPreviewSectionProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-sky-600/80">Capabilities</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-4">
-            Skills & Expertise
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            Organized by domain to show where I build most of my product and engineering impact.
-          </p>
+          <SectionHeader
+            eyebrow="Capabilities"
+            title="Skills & Expertise"
+            subtitle="Organized by domain to show where I build most of my product and engineering impact."
+          />
         </motion.div>
 
         {skills.length > 0 ? (
@@ -203,7 +202,7 @@ export function SkillsPreviewSection({ skills }: SkillsPreviewSectionProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-50px' }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="ds-grid-3"
             >
               {skills.slice(0, 6).map((categoryData, index) => (
                 <CategoryCard key={categoryData.category} categoryData={categoryData} index={index} />

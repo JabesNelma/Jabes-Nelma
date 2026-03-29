@@ -5,8 +5,9 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { PublicCard } from "@/components/public/system/public-card"
 import { getOptimizedImageUrl } from "@/lib/image-url"
 
 interface Project {
@@ -37,7 +38,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       whileHover={{ y: -4 }}
       className="h-full"
     >
-      <Card
+      <PublicCard
         role="link"
         tabIndex={0}
         onClick={() => router.push(`/projects/${project.id}`)}
@@ -47,7 +48,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             router.push(`/projects/${project.id}`)
           }
         }}
-        className="group relative flex h-full cursor-pointer flex-col overflow-hidden border-border/70 bg-card/95 shadow-[0_14px_28px_-22px_rgba(2,6,23,0.45)] transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/40 hover:shadow-[0_20px_40px_-24px_rgba(14,165,233,0.45)]"
+        className="flex h-full cursor-pointer flex-col hover:scale-[1.02]"
       >
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-500 via-teal-500 to-amber-500 opacity-0 transition-opacity duration-300 group-hover:opacity-[0.09]" />
         <div className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full bg-gradient-to-br from-sky-500 to-teal-500 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-20" />
@@ -151,7 +152,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             )}
           </div>
         </CardContent>
-      </Card>
+      </PublicCard>
     </motion.div>
   )
 }

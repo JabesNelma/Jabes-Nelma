@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 import { ContactForm } from "@/components/public/contact-form"
 import { ContactInfo } from "@/components/public/contact-info"
+import { PublicSection } from "@/components/public/system/public-section"
+import { SectionHeader } from "@/components/public/system/section-header"
 
 export const metadata: Metadata = {
   title: "Contact | Portfolio",
@@ -9,20 +11,18 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="max-w-5xl mx-auto">
+    <PublicSection>
         {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-            Get In Touch
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or just want to say hello? I&apos;d love to hear from you.
-          </p>
+        <div className="mb-12">
+          <SectionHeader
+            as="h1"
+            title="Get In Touch"
+            subtitle="Have a project in mind or just want to say hello? I&apos;d love to hear from you."
+          />
         </div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 ds-gap-md lg:grid-cols-5">
           {/* Contact Form */}
           <div className="lg:col-span-3">
             <ContactForm />
@@ -33,7 +33,6 @@ export default function ContactPage() {
             <ContactInfo />
           </div>
         </div>
-      </div>
-    </div>
+    </PublicSection>
   )
 }

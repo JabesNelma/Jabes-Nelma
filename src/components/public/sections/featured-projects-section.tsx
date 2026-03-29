@@ -7,6 +7,7 @@ import { ArrowRight, Folder } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { ProjectCard } from '@/components/public/project-card'
+import { SectionHeader } from '@/components/public/system/section-header'
 import { useRef } from 'react'
 
 interface Project {
@@ -73,15 +74,13 @@ export function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionPro
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mb-14 max-w-2xl text-center"
+          className="mb-14"
         >
-          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-sky-600/80">Featured Work</p>
-          <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Featured Projects
-          </h2>
-          <p className="mx-auto mt-4 text-pretty text-muted-foreground sm:text-lg">
-            A curated selection of recent products with measurable outcomes, thoughtful UX decisions, and strong engineering execution.
-          </p>
+          <SectionHeader
+            eyebrow="Featured Work"
+            title="Featured Projects"
+            subtitle="A curated selection of recent products with measurable outcomes, thoughtful UX decisions, and strong engineering execution."
+          />
         </motion.div>
 
         {projects.length > 0 ? (
@@ -91,7 +90,7 @@ export function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionPro
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-50px' }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="ds-grid-3"
             >
               {projects.slice(0, 3).map((project, index) => (
                 <motion.div key={project.id} variants={itemVariants}>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { FolderOpen, Loader2 } from "lucide-react"
 import { ProjectCard } from "@/components/public/project-card"
+import { SectionHeader } from "@/components/public/system/section-header"
 
 interface Project {
   id: string
@@ -95,14 +96,11 @@ export function ProjectsList() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <h1 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-              Projects
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              A collection of projects I&apos;ve worked on, from web applications
-              to creative experiments. Each project represents a unique challenge
-              and learning experience.
-            </p>
+            <SectionHeader
+              as="h1"
+              title="Projects"
+              subtitle="A collection of projects I&apos;ve worked on, from web applications to creative experiments. Each project represents a unique challenge and learning experience."
+            />
           </motion.div>
         </div>
       </div>
@@ -116,11 +114,11 @@ export function ProjectsList() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-8 text-center text-2xl font-semibold text-foreground"
+              className="mb-8 text-center text-3xl font-semibold text-foreground md:text-5xl"
             >
               Featured Work
             </motion.h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="ds-grid-3">
               {featuredProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}
@@ -139,12 +137,12 @@ export function ProjectsList() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mb-8 text-center text-2xl font-semibold text-foreground"
+              className="mb-8 text-center text-3xl font-semibold text-foreground md:text-5xl"
             >
               Other Projects
             </motion.h2>
           )}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="ds-grid-3">
             {(featuredProjects.length > 0 ? regularProjects : projects).map(
               (project, index) => (
                 <ProjectCard

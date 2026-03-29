@@ -132,4 +132,36 @@
   .section-shell {
     @apply py-20 md:py-28;
   }
+
+  .ds-gap-sm {
+    @apply gap-4;
+  }
+
+  .ds-gap-md {
+    @apply gap-6;
+  }
+
+  .ds-gap-lg {
+    @apply gap-10;
+  }
+
+  .ds-grid-3 {
+    @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .ds-card-base {
+    @apply rounded-2xl border bg-card/95 shadow-[0_14px_28px_-22px_rgba(2,6,23,0.45)] backdrop-blur;
+  }
+
+  .ds-heading {
+    @apply text-3xl md:text-5xl;
+  }
+
+  .ds-subheading {
+    @apply text-lg text-muted-foreground;
+  }
+
+  .ds-body {
+    @apply text-sm md:text-base;
+  }
 }

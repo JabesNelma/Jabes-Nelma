@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
+import { PublicCard } from "@/components/public/system/public-card"
 import { useRef } from "react"
 
 interface Skill {
@@ -112,13 +113,13 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
       }}
       className="group relative"
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${categoryStyle.gradient} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-500`} />
+      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${categoryStyle.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
       
-      <div className="relative overflow-hidden rounded-xl border border-border/70 bg-card/95 p-5 shadow-[0_12px_24px_-20px_rgba(2,6,23,0.45)] transition-all duration-300 hover:border-sky-500/30 hover:shadow-[0_18px_30px_-20px_rgba(14,165,233,0.4)]">
+      <PublicCard className="relative p-5 hover:border-sky-500/30 hover:shadow-[0_18px_30px_-20px_rgba(14,165,233,0.4)]">
         <div className={`absolute -top-10 -right-10 h-24 w-24 rounded-full bg-gradient-to-br ${categoryStyle.gradient} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-15`} />
         
         <div className="relative z-10">
-          <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="mb-4 flex items-start justify-between ds-gap-sm">
             <div className="flex items-center gap-3">
               <motion.div 
                 className={`w-10 h-10 rounded-lg ${categoryStyle.bg} flex items-center justify-center relative overflow-hidden`}
@@ -184,7 +185,7 @@ export function SkillCard({ skill, index = 0 }: SkillCardProps) {
             </motion.span>
           </div>
         </div>
-      </div>
+      </PublicCard>
     </motion.div>
   )
 }

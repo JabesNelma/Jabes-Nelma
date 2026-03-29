@@ -4,8 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, useInView } from "framer-motion"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { PublicCard } from "@/components/public/system/public-card"
 import { useRef } from "react"
 
 interface BlogPost {
@@ -65,13 +66,13 @@ export function BlogCard({ post, index }: BlogCardProps) {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -8 }}
+      whileHover={{ y: -4 }}
       className="h-full"
     >
       <Link href={`/blog/${post.slug}`}>
-        <Card className="group h-full overflow-hidden border-border/50 hover:border-primary/30 transition-all duration-500 bg-gradient-to-br from-card via-card to-card/95 hover:shadow-xl hover:shadow-primary/10 relative">
+        <PublicCard className="h-full border-border/70 transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10">
           {/* Gradient Border Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/5 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 via-sky-500/5 to-teal-500/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="absolute inset-[1px] bg-card rounded-lg" />
           
           {/* Card Content Wrapper */}
@@ -86,8 +87,8 @@ export function BlogCard({ post, index }: BlogCardProps) {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               ) : (
-                <div className="flex items-center justify-center h-full bg-gradient-to-br from-primary/20 via-purple-500/10 to-pink-500/20">
-                  <span className="text-6xl font-bold bg-gradient-to-br from-primary/30 via-purple-500/30 to-pink-500/30 bg-clip-text text-transparent">
+                <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/20 via-sky-500/10 to-teal-500/20">
+                  <span className="bg-gradient-to-br from-primary/30 via-sky-500/30 to-teal-500/30 bg-clip-text text-6xl font-bold text-transparent">
                     {post.title.charAt(0)}
                   </span>
                 </div>
@@ -103,14 +104,14 @@ export function BlogCard({ post, index }: BlogCardProps) {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
               >
-                <Badge className="bg-gradient-to-r from-primary/80 to-purple-500/80 text-white border-0 backdrop-blur-sm">
+                <Badge className="border-0 bg-gradient-to-r from-primary/80 to-sky-500/80 text-white backdrop-blur-sm">
                   <Clock className="h-3 w-3 mr-1" />
                   {post.readTime} min
                 </Badge>
               </motion.div>
             </div>
 
-            <CardContent className="p-5 space-y-3">
+            <CardContent className="space-y-4 p-5">
               {/* Tags */}
               {post.tags && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5">
@@ -123,7 +124,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
                     >
                       <Badge
                         variant="secondary"
-                        className="text-xs font-normal bg-gradient-to-r from-secondary to-secondary/80 hover:from-primary/20 hover:to-purple-500/20 transition-all duration-300"
+                        className="bg-gradient-to-r from-secondary to-secondary/80 text-xs font-normal transition-all duration-300 hover:from-primary/20 hover:to-sky-500/20"
                       >
                         {tag}
                       </Badge>
@@ -138,7 +139,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
               )}
 
               {/* Title */}
-              <h3 className="font-semibold text-lg line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-purple-500 group-hover:to-pink-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+              <h3 className="line-clamp-2 text-lg font-semibold transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-sky-500 group-hover:to-teal-500 group-hover:bg-clip-text group-hover:text-transparent">
                 {post.title}
               </h3>
 
@@ -159,8 +160,8 @@ export function BlogCard({ post, index }: BlogCardProps) {
                 )}
                 
                 {/* Read More */}
-                <motion.div 
-                  className="flex items-center gap-1 text-sm font-medium bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent"
+                <motion.div
+                  className="bg-gradient-to-r from-primary to-sky-500 bg-clip-text text-sm font-medium text-transparent"
                   whileHover={{ x: 3 }}
                 >
                   Read more
@@ -169,7 +170,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
               </div>
             </CardContent>
           </div>
-        </Card>
+        </PublicCard>
       </Link>
     </motion.div>
   )

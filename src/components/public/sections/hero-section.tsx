@@ -70,7 +70,7 @@ export function HeroSection({
         >
           <motion.h1
             variants={itemVariants}
-            className="text-balance text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            className="ds-heading text-balance font-semibold tracking-tight"
           >
             Hi, I&apos;m{' '}
             <span className="bg-[linear-gradient(100deg,#0ea5e9_0%,#14b8a6_50%,#f59e0b_100%)] bg-clip-text text-transparent">
@@ -80,14 +80,14 @@ export function HeroSection({
 
           <motion.p
             variants={itemVariants}
-            className="mt-5 text-xl font-medium text-foreground/80 sm:text-2xl md:text-[1.9rem]"
+            className="mt-5 text-lg font-medium text-foreground/80"
           >
             {title}
           </motion.p>
 
           <motion.p
             variants={itemVariants}
-            className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="ds-subheading mx-auto mt-6 max-w-2xl text-pretty leading-relaxed"
           >
             {introduction}
           </motion.p>

@@ -10,6 +10,7 @@ import { Header } from '@/components/public/header'
 import { Footer } from '@/components/public/footer'
 import { ExperienceTimeline } from '@/components/public/sections/experience-timeline'
 import { SkillsPreviewSection } from '@/components/public/sections/skills-preview-section'
+import { SectionHeader } from '@/components/public/system/section-header'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -160,7 +161,7 @@ export default function AboutPage() {
               {/* Profile Header */}
               <motion.div
                 variants={itemVariants}
-                className="mb-14 flex flex-col items-center gap-8 rounded-2xl border border-border/70 bg-card/70 p-6 shadow-[0_20px_40px_-32px_rgba(15,23,42,0.5)] backdrop-blur md:flex-row md:items-start md:p-8"
+                className="ds-card-base mb-14 flex flex-col items-center gap-8 p-6 md:flex-row md:items-start md:p-8"
               >
                 {/* Profile Image */}
                 <div className="relative flex-shrink-0">
@@ -244,18 +245,18 @@ export default function AboutPage() {
 
               {/* Bio Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight">About Me</h2>
+                <SectionHeader title="About Me" className="mb-4" />
                 <div
-                  className="prose prose-neutral max-w-none rounded-2xl border border-border/70 bg-card/60 p-6 text-muted-foreground shadow-[0_18px_40px_-34px_rgba(15,23,42,0.45)] dark:prose-invert"
+                  className="ds-card-base prose prose-neutral max-w-none p-6 text-muted-foreground dark:prose-invert"
                   dangerouslySetInnerHTML={{ __html: siteConfig.ownerBio || 'Passionate developer with a love for creating beautiful, functional web applications.' }}
                 />
               </motion.div>
 
               {/* Skills Section */}
               <motion.div variants={itemVariants} className="mb-16">
-                <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight" id="skills">Skills & Expertise</h2>
+                <SectionHeader title="Skills & Expertise" className="mb-4" />
                 {allSkills.length > 0 ? (
-                  <div className="flex flex-wrap gap-2 rounded-2xl border border-border/70 bg-card/60 p-5">
+                  <div className="ds-card-base flex flex-wrap gap-2 p-5" id="skills">
                     {allSkills.map((skill) => (
                       <Badge
                         key={skill.id}
@@ -275,7 +276,7 @@ export default function AboutPage() {
 
               {/* Experience Section */}
               <motion.div variants={itemVariants}>
-                <h2 className="mb-8 text-center text-2xl font-semibold">Work Experience</h2>
+                <SectionHeader title="Work Experience" className="mb-8" />
                 <ExperienceTimeline experiences={experiences} />
               </motion.div>
             </motion.div>
