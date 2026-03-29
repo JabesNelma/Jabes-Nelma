@@ -50,7 +50,7 @@ export function TopBar({ user }: TopBarProps) {
           <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-destructive-foreground">
             3
           </span>
-          <span className="sr-only">Notifications</span>
+          <span className="sr-only">Notifikasi</span>
         </Button>
 
         {/* Theme Toggle */}
@@ -84,19 +84,19 @@ export function TopBar({ user }: TopBarProps) {
               <DropdownMenuItem asChild>
                 <Link href="/internal-portal-xyz/settings">
                   <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                  <span>Setelan</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+                <span>Profil</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href="/internal-portal-xyz/login">
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
+                <span>Keluar</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

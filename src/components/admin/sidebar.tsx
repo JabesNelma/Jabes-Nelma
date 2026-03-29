@@ -39,32 +39,32 @@ const navItems: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
-    title: "Projects",
+    title: "Proyek",
     href: "/internal-portal-xyz/projects",
     icon: FolderKanban,
   },
   {
-    title: "Skills",
+    title: "Keahlian",
     href: "/internal-portal-xyz/skills",
     icon: Wrench,
   },
   {
-    title: "Experience",
+    title: "Pengalaman",
     href: "/internal-portal-xyz/experience",
     icon: Briefcase,
   },
   {
-    title: "Messages",
+    title: "Pesan",
     href: "/internal-portal-xyz/messages",
     icon: Mail,
   },
   {
-    title: "Blog Posts",
+    title: "Postingan Blog",
     href: "/internal-portal-xyz/blog",
     icon: FileText,
   },
   {
-    title: "Site Settings",
+    title: "Setelan Situs",
     href: "/internal-portal-xyz/settings",
     icon: Settings,
   },

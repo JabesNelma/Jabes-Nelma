@@ -94,15 +94,15 @@ export default function BlogPage() {
         className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Blog Posts</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Postingan Blog</h1>
           <p className="text-muted-foreground">
-            Manage your blog content
+            Kelola konten blog Anda
           </p>
         </div>
         <Button asChild>
           <Link href="/internal-portal-xyz/blog/new">
             <Plus className="mr-2 h-4 w-4" />
-            New Post
+            Postingan Baru
           </Link>
         </Button>
       </motion.div>
@@ -116,13 +116,13 @@ export default function BlogPage() {
       >
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Total Posts</CardDescription>
+            <CardDescription>Total Postingan</CardDescription>
             <CardTitle className="text-3xl">{posts.length}</CardTitle>
           </CardHeader>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Published</CardDescription>
+            <CardDescription>Dipublikasikan</CardDescription>
             <CardTitle className="text-3xl text-green-600 dark:text-green-400">
               {publishedCount}
             </CardTitle>
@@ -130,7 +130,7 @@ export default function BlogPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Drafts</CardDescription>
+            <CardDescription>Konsep</CardDescription>
             <CardTitle className="text-3xl text-yellow-600 dark:text-yellow-400">
               {draftCount}
             </CardTitle>
@@ -148,7 +148,7 @@ export default function BlogPage() {
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
               <Filter className="h-4 w-4" />
-              Search & Filters
+              Cari & Filter
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -157,7 +157,7 @@ export default function BlogPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search by title..."
+                    placeholder="Cari berdasarkan judul..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-9"
@@ -168,25 +168,25 @@ export default function BlogPage() {
                 <span className="text-sm text-muted-foreground">Status:</span>
                 <Select value={filter} onValueChange={setFilter}>
                   <SelectTrigger className="w-[140px]">
-                    <SelectValue placeholder="All posts" />
+                    <SelectValue placeholder="Semua postingan" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All posts</SelectItem>
-                    <SelectItem value="true">Published</SelectItem>
-                    <SelectItem value="false">Drafts</SelectItem>
+                    <SelectItem value="all">Semua postingan</SelectItem>
+                    <SelectItem value="true">Dipublikasikan</SelectItem>
+                    <SelectItem value="false">Konsep</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Sort by:</span>
+                <span className="text-sm text-muted-foreground">Urutkan berdasarkan:</span>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-[140px]">
-                    <SelectValue placeholder="Date" />
+                    <SelectValue placeholder="Tanggal" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="createdAt">Created Date</SelectItem>
-                    <SelectItem value="publishedAt">Published Date</SelectItem>
-                    <SelectItem value="title">Title</SelectItem>
+                    <SelectItem value="createdAt">Tanggal Dibuat</SelectItem>
+                    <SelectItem value="publishedAt">Tanggal Dipublikasikan</SelectItem>
+                    <SelectItem value="title">Judul</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button variant="outline" size="icon" onClick={toggleSortOrder}>

@@ -14,9 +14,9 @@ export default function ProjectsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Proyek</h1>
         <p className="text-muted-foreground">
-          Manage your portfolio projects
+          Kelola proyek portofolio Anda
         </p>
       </motion.div>
 

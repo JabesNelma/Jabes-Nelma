@@ -99,30 +99,30 @@ const defaultStats = {
 export function StatsCards({ stats = defaultStats }: StatsCardsProps) {
   const cards = [
     {
-      title: "Total Projects",
+      title: "Total Proyek",
       value: stats.projects,
       icon: FolderKanban,
-      description: "from last month",
+      description: "dari bulan lalu",
       trend: { value: 12, isPositive: true },
     },
     {
-      title: "Skills",
+      title: "Keahlian",
       value: stats.skills,
       icon: Wrench,
-      description: "across 5 categories",
+      description: "di 5 kategori",
     },
     {
-      title: "Messages",
+      title: "Pesan",
       value: stats.messages,
       icon: Mail,
-      description: "3 unread",
+      description: "3 belum dibaca",
       trend: { value: 8, isPositive: true },
     },
     {
-      title: "Blog Posts",
+      title: "Postingan Blog",
       value: stats.blogPosts,
       icon: FileText,
-      description: "published",
+      description: "dipublikasikan",
       trend: { value: 3, isPositive: true },
     },
   ]

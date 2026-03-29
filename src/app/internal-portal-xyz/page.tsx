@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
         >
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back! Here&apos;s an overview of your portfolio.
+            Selamat datang! Berikut adalah ringkasan portoflio Anda.
           </p>
         </motion.div>
         <motion.div
@@ -159,7 +159,7 @@ export default function AdminDashboardPage() {
           <Button asChild>
             <Link href="/">
               <ExternalLink className="mr-2 h-4 w-4" />
-              View Site
+              Lihat Situs
             </Link>
           </Button>
         </motion.div>
@@ -180,14 +180,14 @@ export default function AdminDashboardPage() {
           <Card className="h-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Recent Messages</CardTitle>
+                <CardTitle>Pesan Terbaru</CardTitle>
                 <CardDescription>
-                  Latest contact form submissions
+                  Kiriman formulir kontak terbaru
                 </CardDescription>
               </div>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/internal-portal-xyz/messages">
-                  View all
+                  Lihat semua
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
                               </span>
                               {!message.isRead && (
                                 <Badge variant="secondary" className="text-xs">
-                                  New
+                                  Baru
                                 </Badge>
                               )}
                             </div>
@@ -245,8 +245,8 @@ export default function AdminDashboardPage() {
         >
           <Card className="h-full">
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common tasks and shortcuts</CardDescription>
+              <CardTitle>Aksi Cepat</CardTitle>
+              <CardDescription>Tugas dan pintasan umum</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {quickActions.map((action, index) => (

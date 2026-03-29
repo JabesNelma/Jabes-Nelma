@@ -39,14 +39,14 @@ import { ImageUploader } from "@/components/admin/image-uploader"
 
 const projectSchema = z
   .object({
-    title: z.string().min(1, "Title is required").max(200, "Title is too long"),
-    description: z.string().min(1, "Description is required").max(500, "Description is too long"),
+    title: z.string().min(1, "Judul diperlukan").max(200, "Judul terlalu panjang"),
+    description: z.string().min(1, "Deskripsi diperlukan").max(500, "Deskripsi terlalu panjang"),
     content: z.string().optional(),
-    coverImage: z.string().url("Cover image must be a valid URL"),
-    images: z.array(z.string().url("Invalid URL")),
+    coverImage: z.string().url("Gambar sampul harus URL yang valid"),
+    images: z.array(z.string().url("URL tidak valid")),
     techStack: z.array(z.string()).optional(),
-    githubUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
-    liveUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
+    githubUrl: z.string().url("URL tidak valid").optional().or(z.literal("")),
+    liveUrl: z.string().url("URL tidak valid").optional().or(z.literal("")),
     featured: z.boolean().optional(),
     status: z.enum(["draft", "published"]).optional(),
   })
@@ -55,7 +55,7 @@ const projectSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["images"],
-        message: "Minimal satu gambar dibutuhkan.",
+        message: "Minimal satu gambar diperlukan.",
       })
     }
 
@@ -63,7 +63,7 @@ const projectSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["coverImage"],
-        message: "Cover image harus termasuk dalam daftar images.",
+        message: "Gambar sampul harus termasuk dalam daftar gambar.",
       })
     }
   })
@@ -254,9 +254,9 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEditing ? "Edit Project" : "Create New Project"}</CardTitle>
+        <CardTitle>{isEditing ? "Edit Proyek" : "Buat Proyek Baru"}</CardTitle>
         <CardDescription>
-          {isEditing ? "Update the project details below." : "Fill in the details below to create a new project."}
+          {isEditing ? "Perbarui detail proyek di bawah." : "Isi detail di bawah untuk membuat proyek baru."}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -267,9 +267,9 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title *</FormLabel>
+                  <FormLabel>Judul *</FormLabel>
                   <FormControl>
-                    <Input placeholder="My Awesome Project" {...field} disabled={isLoading} />
+                    <Input placeholder="Proyek Luar Biasa Saya" {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -281,17 +281,17 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description *</FormLabel>
+                  <FormLabel>Deskripsi *</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="A brief description of your project..."
+                      placeholder="Deskripsi singkat proyek Anda..."
                       className="min-h-[100px]"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    A short summary that appears in project cards (max 500 characters).
+                    Ringkasan singkat yang muncul di kartu proyek (maks 500 karakter).
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -303,16 +303,16 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel>Konten</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Detailed project description in markdown..."
+                      placeholder="Deskripsi proyek terperinci dalam markdown..."
                       className="min-h-[200px] font-mono"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
-                  <FormDescription>Full project description with markdown support.</FormDescription>
+                  <FormDescription>Deskripsi proyek lengkap dengan dukungan markdown.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -323,11 +323,11 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
               name="techStack"
               render={() => (
                 <FormItem>
-                  <FormLabel>Tech Stack</FormLabel>
+                  <FormLabel>Stack Teknologi</FormLabel>
                   <div className="space-y-2">
                     <div className="flex gap-2">
                       <Input
-                        placeholder="React, Node.js, etc."
+                        placeholder="React, Node.js, dll."
                         value={techInput}
                         onChange={(e) => setTechInput(e.target.value)}
                         onKeyDown={(e) => {
@@ -465,7 +465,7 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                     />
                   </div>
                   <FormDescription>
-                    Upload multiple images, pilih salah satu sebagai cover, dan kelola gallery dari sini.
+                    Unggah beberapa gambar, pilih salah satu sebagai sampul, dan kelola galeri dari sini.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -478,7 +478,7 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                 name="githubUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>GitHub URL</FormLabel>
+                    <FormLabel>URL GitHub</FormLabel>
                     <FormControl>
                       <Input placeholder="https://github.com/user/repo" {...field} disabled={isLoading} />
                     </FormControl>
@@ -492,9 +492,9 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                 name="liveUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Live URL</FormLabel>
+                    <FormLabel>URL Langsung</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://myproject.com" {...field} disabled={isLoading} />
+                      <Input placeholder="https://proyek-saya.com" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -512,12 +512,12 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                     <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <FormControl>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select status" />
+                          <SelectValue placeholder="Pilih status" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="draft">Draft</SelectItem>
-                        <SelectItem value="published">Published</SelectItem>
+                        <SelectItem value="draft">Konsep</SelectItem>
+                        <SelectItem value="published">Dipublikasikan</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -538,8 +538,8 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel>Featured Project</FormLabel>
-                      <FormDescription>Show this project prominently on your portfolio.</FormDescription>
+                      <FormLabel>Proyek Unggulan</FormLabel>
+                      <FormDescription>Tampilkan proyek ini secara menonjol di portofolio Anda.</FormDescription>
                     </div>
                   </FormItem>
                 )}
@@ -551,16 +551,16 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isEditing ? "Updating..." : "Creating..."}
+                    {isEditing ? "Memperbarui..." : "Membuat..."}
                   </>
                 ) : isEditing ? (
-                  "Update Project"
+                  "Perbarui Proyek"
                 ) : (
-                  "Create Project"
+                  "Buat Proyek"
                 )}
               </Button>
               <Button type="button" variant="outline" onClick={() => router.back()} disabled={isLoading}>
-                Cancel
+                Batal
               </Button>
             </div>
           </form>

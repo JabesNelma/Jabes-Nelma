@@ -31,15 +31,15 @@ import {
 import { toast } from "sonner";
 
 const blogFormSchema = z.object({
-  title: z.string().min(1, "Title is required").max(200, "Title is too long"),
+  title: z.string().min(1, "Judul wajib diisi").max(200, "Judul terlalu panjang"),
   slug: z
     .string()
-    .min(1, "Slug is required")
-    .max(200, "Slug is too long")
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase with dashes"),
-  excerpt: z.string().max(500, "Excerpt is too long").optional(),
-  content: z.string().min(1, "Content is required"),
-  coverImage: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+    .min(1, "Slug wajib diisi")
+    .max(200, "Slug terlalu panjang")
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug harus huruf kecil dengan tanda hubung"),
+  excerpt: z.string().max(500, "Ringkasan terlalu panjang").optional(),
+  content: z.string().min(1, "Konten wajib diisi"),
+  coverImage: z.string().url("Harus URL yang valid").optional().or(z.literal("")),
   tags: z.array(z.string()).optional(),
   author: z.string().default("Admin"),
   published: z.boolean().default(false),
@@ -141,16 +141,16 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
       if (result.success) {
         toast.success(
           isEditing
-            ? "Blog post updated successfully"
-            : "Blog post created successfully"
+            ? "Postingan blog berhasil diperbarui"
+            : "Postingan blog berhasil dibuat"
         );
         router.push("/internal-portal-xyz/blog");
         router.refresh();
       } else {
-        toast.error(result.message || "Failed to save blog post");
+        toast.error(result.message || "Gagal menyimpan postingan blog");
       }
     } catch {
-      toast.error("Failed to save blog post");
+      toast.error("Gagal menyimpan postingan blog");
     } finally {
       setIsSubmitting(false);
     }
@@ -159,11 +159,11 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEditing ? "Edit Blog Post" : "Create Blog Post"}</CardTitle>
+        <CardTitle>{isEditing ? "Edit Postingan Blog" : "Buat Postingan Blog"}</CardTitle>
         <CardDescription>
           {isEditing
-            ? "Update your blog post details below."
-            : "Fill in the details to create a new blog post."}
+            ? "Perbarui detail postingan blog Anda di bawah ini."
+            : "Isi detail untuk membuat postingan blog baru."}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -176,9 +176,9 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title *</FormLabel>
+                    <FormLabel>Judul *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter post title" {...field} />
+                      <Input placeholder="Masukkan judul postingan" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -191,10 +191,10 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                   <FormItem>
                     <FormLabel>Slug *</FormLabel>
                     <FormControl>
-                      <Input placeholder="post-url-slug" {...field} />
+                      <Input placeholder="url-postingan" {...field} />
                     </FormControl>
                     <FormDescription>
-                      URL-friendly identifier (auto-generated)
+                      Pengenal ramah URL (dibuat otomatis)
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -208,17 +208,17 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
               name="excerpt"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Excerpt</FormLabel>
+                  <FormLabel>Ringkasan</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Brief summary of the post..."
+                      placeholder="Ringkasan singkat postingan..."
                       className="resize-none"
                       rows={3}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    A short summary for previews (max 500 characters)
+                    Ringkasan singkat untuk pratinjau (maks 500 karakter)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -231,16 +231,16 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content *</FormLabel>
+                  <FormLabel>Konten *</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Write your blog post content in Markdown..."
+                      placeholder="Tulis konten postingan blog Anda dalam Markdown..."
                       className="min-h-[300px] font-mono"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    Write your content using Markdown syntax
+                    Tulis konten Anda menggunakan sintaks Markdown
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -253,15 +253,15 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
               name="coverImage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cover Image URL</FormLabel>
+                  <FormLabel>URL Gambar Sampul</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="https://example.com/image.jpg"
+                      placeholder="https://contoh.com/gambar.jpg"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the URL for the cover image
+                    Masukkan URL untuk gambar sampul
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -274,11 +274,11 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
               name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tags</FormLabel>
+                  <FormLabel>Tag</FormLabel>
                   <div className="flex gap-2">
                     <FormControl>
                       <Input
-                        placeholder="Enter a tag"
+                        placeholder="Masukkan tag"
                         value={tagInput}
                         onChange={(e) => setTagInput(e.target.value)}
                         onKeyDown={handleTagInputKeyDown}
@@ -307,7 +307,7 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                     ))}
                   </div>
                   <FormDescription>
-                    Press Enter or click + to add tags. Click a tag to remove it.
+                    Tekan Enter atau klik + untuk menambah tag. Klik tag untuk menghapusnya.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -321,7 +321,7 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                 name="author"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Author</FormLabel>
+                    <FormLabel>Pengarang</FormLabel>
                     <FormControl>
                       <Input placeholder="Admin" {...field} />
                     </FormControl>
@@ -334,7 +334,7 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                 name="readTime"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Read Time (minutes)</FormLabel>
+                    <FormLabel>Waktu Baca (menit)</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -363,11 +363,11 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Published</FormLabel>
+                    <FormLabel>Dipublikasikan</FormLabel>
                     <FormDescription>
                       {isEditing
-                        ? "Toggle to publish or unpublish this post"
-                        : "Check to publish immediately after creation"}
+                        ? "Alihkan untuk mempublikasikan atau tidak mempublikasikan postingan ini"
+                        : "Centang untuk mempublikasikan segera setelah pembuatan"}
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -382,18 +382,18 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
                 onClick={() => router.push("/internal-portal-xyz/blog")}
                 disabled={isSubmitting}
               >
-                Cancel
+                Batal
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isEditing ? "Updating..." : "Creating..."}
+                    {isEditing ? "Mengupdate..." : "Membuat..."}
                   </>
                 ) : (
                   <>
                     <Save className="mr-2 h-4 w-4" />
-                    {isEditing ? "Update Post" : "Create Post"}
+                    {isEditing ? "Perbarui Postingan" : "Buat Postingan"}
                   </>
                 )}
               </Button>

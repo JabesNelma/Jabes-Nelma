@@ -20,9 +20,9 @@ export default function ExperienceListPage() {
           <Briefcase className="h-6 w-6 text-primary" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Work Experience</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Pengalaman Kerja</h1>
           <p className="text-muted-foreground">
-            Manage your professional work experience
+            Kelola pengalaman kerja profesional Anda
           </p>
         </div>
       </motion.div>
