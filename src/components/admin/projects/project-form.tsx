@@ -240,7 +240,8 @@ export function ProjectForm({ project, isEditing = false }: ProjectFormProps) {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to save project")
+        const detailSuffix = result?.details ? `: ${result.details}` : ""
+        throw new Error(`${result?.error || "Failed to save project"}${detailSuffix}`)
       }
 
       router.push("/internal-portal-xyz/projects")

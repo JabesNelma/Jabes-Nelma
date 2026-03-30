@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
+import { Prisma } from "@prisma/client"
 
 function parseImages(value: string | null): string[] {
   if (!value) return []
@@ -21,7 +22,83 @@ function normalizeImages(images: unknown): string[] {
     return []
   }
 
-  return images.filter((image): image is string => typeof image === "string" && image.trim().length > 0)
+  const deduped = new Set<string>()
+
+  for (const image of images) {
+    if (typeof image !== "string") {
+      continue
+    }
+
+    const normalized = image.trim()
+    if (!normalized) {
+      continue
+    }
+
+    deduped.add(normalized)
+  }
+
+  return Array.from(deduped)
+}
+
+function normalizeTechStack(value: unknown): string[] | null {
+  if (!Array.isArray(value)) {
+    return null
+  }
+
+  const deduped = new Set<string>()
+  for (const item of value) {
+    if (typeof item !== "string") {
+      continue
+    }
+
+    const normalized = item.trim()
+    if (!normalized) {
+      continue
+    }
+
+    deduped.add(normalized)
+  }
+
+  return Array.from(deduped)
+}
+
+function getPrismaErrorPayload(error: unknown): { error: string; details?: string } {
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error.code === "P2000") {
+      return {
+        error: "Data terlalu panjang untuk disimpan",
+        details: "Periksa panjang konten, URL gambar, atau field teks lainnya.",
+      }
+    }
+
+    if (error.code === "P2022") {
+      return {
+        error: "Skema database belum sinkron",
+        details: "Ada kolom yang belum tersedia di database deployment. Jalankan migrasi terbaru.",
+      }
+    }
+
+    return {
+      error: "Prisma request error",
+      details: `${error.code}: ${error.message}`,
+    }
+  }
+
+  if (error instanceof Prisma.PrismaClientValidationError) {
+    return {
+      error: "Validasi data gagal di server",
+      details: error.message,
+    }
+  }
+
+  if (error instanceof Error) {
+    return {
+      error: "Failed to update project",
+      details: error.message,
+    }
+  }
+
+  return { error: "Failed to update project" }
 }
 
 // GET /api/admin/projects/[id] - Get single project
@@ -95,9 +172,29 @@ export async function PUT(
 
     const existingImages = parseImages(existingProject.images)
     const normalizedImages = normalizeImages(images)
+    const normalizedTechStack = normalizeTechStack(techStack)
 
     const fallbackCover = existingProject.coverImage || existingImages[0] || ""
     const normalizedCover = typeof coverImage === "string" ? coverImage.trim() : fallbackCover
+    const normalizedTitle = typeof title === "string" ? title.trim() : existingProject.title
+    const normalizedDescription =
+      typeof description === "string" ? description.trim() : existingProject.description
+    const normalizedGithubUrl = typeof githubUrl === "string" ? githubUrl.trim() : existingProject.githubUrl
+    const normalizedLiveUrl = typeof liveUrl === "string" ? liveUrl.trim() : existingProject.liveUrl
+    const normalizedStatus = status === "draft" || status === "published"
+      ? status
+      : existingProject.status
+    const normalizedFeatured = typeof featured === "boolean" ? featured : existingProject.featured
+    const normalizedOrder = typeof order === "number" && Number.isFinite(order)
+      ? order
+      : existingProject.order
+
+    if (!normalizedTitle || !normalizedDescription) {
+      return NextResponse.json(
+        { error: "Title and description are required" },
+        { status: 400 }
+      )
+    }
 
     if (!normalizedCover) {
       return NextResponse.json({ error: "Cover image is required" }, { status: 400 })
@@ -112,25 +209,26 @@ export async function PUT(
     const project = await db.project.update({
       where: { id },
       data: {
-        title,
-        description,
+        title: normalizedTitle,
+        description: normalizedDescription,
         content: content || null,
         coverImage: normalizedCover,
         images: JSON.stringify(finalImages),
-        techStack: techStack ? JSON.stringify(techStack) : null,
-        githubUrl: githubUrl || null,
-        liveUrl: liveUrl || null,
-        featured: featured ?? existingProject.featured,
-        status: status || existingProject.status,
-        order: order ?? existingProject.order,
+        techStack: normalizedTechStack ? JSON.stringify(normalizedTechStack) : null,
+        githubUrl: normalizedGithubUrl || null,
+        liveUrl: normalizedLiveUrl || null,
+        featured: normalizedFeatured,
+        status: normalizedStatus,
+        order: normalizedOrder,
       },
     })
 
     return NextResponse.json({ project })
   } catch (error) {
     console.error("Error updating project:", error)
+    const errorPayload = getPrismaErrorPayload(error)
     return NextResponse.json(
-      { error: "Failed to update project" },
+      errorPayload,
       { status: 500 }
     )
   }
