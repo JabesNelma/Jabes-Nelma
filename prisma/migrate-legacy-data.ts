@@ -106,19 +106,19 @@ async function migrateData() {
     // 2. Migrate social links
     console.log('🔗 Migrating social links...')
     if (content.info.socials && content.info.socials.length > 0) {
-      for (const social of content.info.socials) {
+      for (const [index, social] of content.info.socials.entries()) {
+        const normalizedPlatform = social.name.trim().toLowerCase()
         const existing = await prisma.socialLink.findFirst({
-          where: { platform: social.name },
+          where: { platform: normalizedPlatform },
         })
 
         if (!existing) {
           await prisma.socialLink.create({
             data: {
-              platform: social.name,
+              platform: normalizedPlatform,
               url: social.url,
-              icon: social.icon ? social.icon.replace('/icons/', '').replace('.svg', '') : social.name.toLowerCase(),
-              order: 0,
-              visible: true,
+              order: index,
+              isActive: true,
             },
           })
         }

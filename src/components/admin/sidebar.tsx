@@ -11,6 +11,7 @@ import {
   Mail,
   FileText,
   Settings,
+  Share2,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
@@ -62,6 +63,11 @@ const navItems: NavItem[] = [
     title: "Postingan Blog",
     href: "/internal-portal-xyz/blog",
     icon: FileText,
+  },
+  {
+    title: "Social Links",
+    href: "/internal-portal-xyz/social-links",
+    icon: Share2,
   },
   {
     title: "Setelan Situs",

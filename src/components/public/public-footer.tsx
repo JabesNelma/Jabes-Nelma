@@ -1,26 +1,23 @@
 "use client"
 
-import Link from "next/link"
-import { Github, Linkedin, Twitter, Mail } from "lucide-react"
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { fallbackSocialIcon, socialIconMap, getSocialLabel } from "@/lib/social-icon-map"
+import { type SocialPlatform } from "@/lib/social-platforms"
 
 interface SocialLink {
   id: string
-  platform: string
+  platform: SocialPlatform
   url: string
-  icon: string | null
-}
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  email: Mail,
+  order: number
 }
 
 export function PublicFooter() {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([])
   const [siteName, setSiteName] = useState("Portfolio")
+  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     async function fetchData() {
@@ -47,40 +44,51 @@ export function PublicFooter() {
     fetchData()
   }, [])
 
-  const getIcon = (platform: string) => {
-    const lowerPlatform = platform.toLowerCase()
-    return iconMap[lowerPlatform] || Mail
-  }
-
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="layout-container py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Copyright */}
-          <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {siteName}. All rights reserved.
+    <footer className="border-t bg-gradient-to-b from-background to-muted/25">
+      <div className="layout-container py-10">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-3">
+            <p className="text-lg font-semibold tracking-tight">
+              Jabes Nelma <span className="text-primary">|</span> Full Stack Dev
+            </p>
+            <p className="max-w-md text-sm text-muted-foreground">
+              Building resilient web products, thoughtful user experiences, and scalable systems.
+            </p>
           </div>
 
-          {/* Social Links */}
           {socialLinks.length > 0 && (
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 md:justify-end">
               {socialLinks.map((link) => {
-                const Icon = getIcon(link.platform)
+                const Icon = socialIconMap[link.platform] || fallbackSocialIcon
                 return (
-                  <Link
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <Icon className="h-5 w-5" />
-                    <span className="sr-only">{link.platform}</span>
-                  </Link>
+                  <Tooltip key={link.id}>
+                    <TooltipTrigger asChild>
+                      <motion.a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.07 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="p-1.5 text-muted-foreground transition-all hover:text-primary hover:drop-shadow-[0_0_10px_hsl(var(--primary)/0.55)]"
+                      >
+                        <Icon className="h-5 w-5" />
+                        <span className="sr-only">{getSocialLabel(link.platform)}</span>
+                      </motion.a>
+                    </TooltipTrigger>
+                    <TooltipContent sideOffset={8}>
+                      {getSocialLabel(link.platform)}
+                    </TooltipContent>
+                  </Tooltip>
                 )
               })}
             </div>
           )}
+        </div>
+
+        <div className="mt-8 flex flex-col gap-2 border-t border-border/70 pt-5 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>© {currentYear} {siteName}. Crafted with precision.</p>
+          <p>Next.js • TypeScript • Prisma • Tailwind CSS</p>
         </div>
       </div>
     </footer>

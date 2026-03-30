@@ -29,8 +29,8 @@ export default function AdminLayout({
     return (
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
-        enableSystem
+        defaultTheme="dark"
+        enableSystem={false}
         disableTransitionOnChange
       >
         {children}
@@ -42,8 +42,8 @@ export default function AdminLayout({
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="dark"
+      enableSystem={false}
       disableTransitionOnChange
     >
       <div className="flex h-screen overflow-hidden bg-background">

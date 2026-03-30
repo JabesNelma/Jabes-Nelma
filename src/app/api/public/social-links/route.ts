@@ -1,16 +1,37 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
+import { normalizeSocialPlatform } from "@/lib/social-platforms"
 
 export async function GET() {
   try {
-    const socialLinks = await db.socialLink.findMany({
+    const socialLinksRaw = await db.socialLink.findMany({
       where: {
-        visible: true,
+        isActive: true,
+      },
+      select: {
+        id: true,
+        platform: true,
+        url: true,
+        order: true,
       },
       orderBy: {
         order: "asc",
       },
     })
+
+    const socialLinks = socialLinksRaw
+      .map((link) => {
+        const normalizedPlatform = normalizeSocialPlatform(link.platform)
+        if (!normalizedPlatform) {
+          return null
+        }
+
+        return {
+          ...link,
+          platform: normalizedPlatform,
+        }
+      })
+      .filter((link): link is NonNullable<typeof link> => link !== null)
 
     return NextResponse.json({ socialLinks })
   } catch (error) {

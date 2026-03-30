@@ -3,15 +3,16 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Github, Linkedin, Twitter, Mail, ExternalLink } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
-import { cn } from "@/lib/utils"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { fallbackSocialIcon, socialIconMap, getSocialLabel } from "@/lib/social-icon-map"
+import { type SocialPlatform } from "@/lib/social-platforms"
 
 interface SocialLink {
   id: string
-  platform: string
+  platform: SocialPlatform
   url: string
-  icon: string | null
+  order: number
 }
 
 interface SiteConfig {
@@ -19,13 +20,6 @@ interface SiteConfig {
   siteDescription: string
   siteAuthor: string
   contactEmail: string
-}
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  email: Mail,
 }
 
 const quickLinks = [
@@ -37,7 +31,7 @@ const quickLinks = [
   { href: "/#contact", label: "Contact" },
 ]
 
-export function Footer() {
+export function Footer(_: { siteName?: string }) {
   const [config, setConfig] = useState<SiteConfig>({
     siteName: "Jabes Nelma Portfolio",
     siteDescription: "A personal portfolio website",
@@ -68,11 +62,6 @@ export function Footer() {
     fetchData()
   }, [])
 
-  const getIcon = (platform: string) => {
-    const lowerPlatform = platform.toLowerCase()
-    return iconMap[lowerPlatform] || ExternalLink
-  }
-
   const currentYear = new Date().getFullYear()
 
   return (
@@ -87,9 +76,9 @@ export function Footer() {
             transition={{ duration: 0.5 }}
             className="space-y-4"
           >
-            <h3 className="font-bold text-lg">{config.siteAuthor}</h3>
+            <h3 className="font-bold text-lg">Jabes Nelma | Full Stack Dev</h3>
             <p className="text-sm text-muted-foreground max-w-xs">
-              {config.siteDescription}
+              {config.siteDescription || "Building resilient web products with practical engineering and modern design."}
             </p>
           </motion.div>
 
@@ -130,59 +119,28 @@ export function Footer() {
             </h4>
             <div className="flex items-center gap-3">
               {socialLinks.map((link) => {
-                const Icon = getIcon(link.platform)
+                const Icon = socialIconMap[link.platform] || fallbackSocialIcon
                 return (
-                  <motion.a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span className="sr-only">{link.platform}</span>
-                  </motion.a>
+                  <Tooltip key={link.id}>
+                    <TooltipTrigger asChild>
+                      <motion.a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="p-1.5 text-muted-foreground transition-all hover:text-primary hover:drop-shadow-[0_0_10px_hsl(var(--primary)/0.55)]"
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span className="sr-only">{getSocialLabel(link.platform)}</span>
+                      </motion.a>
+                    </TooltipTrigger>
+                    <TooltipContent sideOffset={8}>
+                      {getSocialLabel(link.platform)}
+                    </TooltipContent>
+                  </Tooltip>
                 )
               })}
-              {socialLinks.length === 0 && (
-                <>
-                  <motion.a
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-                  >
-                    <Github className="h-4 w-4" />
-                    <span className="sr-only">GitHub</span>
-                  </motion.a>
-                  <motion.a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-                  >
-                    <Linkedin className="h-4 w-4" />
-                    <span className="sr-only">LinkedIn</span>
-                  </motion.a>
-                  <motion.a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-                  >
-                    <Twitter className="h-4 w-4" />
-                    <span className="sr-only">Twitter</span>
-                  </motion.a>
-                </>
-              )}
             </div>
             <div className="pt-2">
               <a

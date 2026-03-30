@@ -2,26 +2,21 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, MapPin, Github, Linkedin, Twitter, ExternalLink } from "lucide-react"
+import { Mail, MapPin, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { fallbackSocialIcon, socialIconMap, getSocialLabel } from "@/lib/social-icon-map"
+import { type SocialPlatform } from "@/lib/social-platforms"
 
 interface SocialLink {
   id: string
-  platform: string
+  platform: SocialPlatform
   url: string
-  icon: string | null
+  order: number
 }
 
 interface SiteConfig {
   contactEmail: string
   siteAuthor: string
-}
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  email: Mail,
 }
 
 export function ContactInfo() {
@@ -52,11 +47,6 @@ export function ContactInfo() {
 
     fetchData()
   }, [])
-
-  const getIcon = (platform: string) => {
-    const lowerPlatform = platform.toLowerCase()
-    return iconMap[lowerPlatform] || ExternalLink
-  }
 
   return (
     <div className="space-y-6">
@@ -114,7 +104,7 @@ export function ContactInfo() {
               <h3 className="font-semibold text-lg mb-4">Connect With Me</h3>
               <div className="space-y-3">
                 {socialLinks.map((link) => {
-                  const Icon = getIcon(link.platform)
+                  const Icon = socialIconMap[link.platform] || fallbackSocialIcon
                   return (
                     <a
                       key={link.id}
@@ -127,7 +117,7 @@ export function ContactInfo() {
                         <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium">{link.platform}</p>
+                        <p className="font-medium">{getSocialLabel(link.platform)}</p>
                         <p className="text-sm text-muted-foreground truncate">
                           {link.url}
                         </p>
