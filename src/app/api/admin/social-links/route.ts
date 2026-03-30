@@ -5,11 +5,38 @@ import { normalizeSocialPlatform } from "@/lib/social-platforms"
 
 export async function GET() {
   try {
-    const socialLinksRaw = await db.socialLink.findMany({
-      orderBy: {
-        order: "asc",
-      },
-    })
+    let socialLinksRaw: Array<{
+      id: string
+      platform: string
+      url: string
+      isActive: boolean
+      order: number
+      createdAt: Date
+      updatedAt: Date
+    }> = []
+
+    try {
+      socialLinksRaw = await db.socialLink.findMany({
+        orderBy: {
+          order: "asc",
+        },
+      })
+    } catch {
+      // Fallback for legacy schema that does not have `isActive` / `order` yet.
+      const legacyRows = await db.$queryRawUnsafe<Array<{
+        id: string
+        platform: string
+        url: string
+      }>>("SELECT id, platform, url FROM SocialLink")
+
+      socialLinksRaw = legacyRows.map((row, index) => ({
+        ...row,
+        isActive: true,
+        order: index,
+        createdAt: new Date(0),
+        updatedAt: new Date(0),
+      }))
+    }
 
     const socialLinks = socialLinksRaw
       .map((link) => {
