@@ -38,7 +38,7 @@ export function ContactInfo() {
 
         if (configRes.ok) {
           const data = await configRes.json()
-          setConfig(data.config)
+          setConfig((data.data || data.config || null) as SiteConfig | null)
         }
       } catch (error) {
         console.error("Error fetching contact info:", error)

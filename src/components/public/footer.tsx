@@ -49,8 +49,9 @@ export function Footer(_: { siteName?: string }) {
         ])
         const configData = await configRes.json()
         const socialData = await socialRes.json()
-        if (configData.config) {
-          setConfig(configData.config)
+        const nextConfig = configData.data || configData.config
+        if (nextConfig) {
+          setConfig((prev) => ({ ...prev, ...nextConfig }))
         }
         if (socialData.socialLinks) {
           setSocialLinks(socialData.socialLinks)

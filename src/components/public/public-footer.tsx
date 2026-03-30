@@ -34,7 +34,8 @@ export function PublicFooter() {
         
         if (configRes.ok) {
           const data = await configRes.json()
-          setSiteName(data.config?.siteName || "Portfolio")
+          const config = data.data || data.config || {}
+          setSiteName(config.siteName || "Portfolio")
         }
       } catch (error) {
         console.error("Error fetching footer data:", error)

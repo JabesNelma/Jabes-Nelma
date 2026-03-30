@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
@@ -79,6 +80,25 @@ const navItems: NavItem[] = [
 export function MobileNav() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
+  const [siteName, setSiteName] = React.useState("Portfolio CMS")
+  const [logoUrl, setLogoUrl] = React.useState("")
+
+  React.useEffect(() => {
+    async function fetchConfig() {
+      try {
+        const response = await fetch("/api/public/site-config")
+        const data = await response.json()
+        const config = data.data || data.config || {}
+
+        setSiteName(config.siteName || "Portfolio CMS")
+        setLogoUrl(config.siteLogoUrl || "")
+      } catch {
+        // Keep fallback brand when config request fails.
+      }
+    }
+
+    fetchConfig()
+  }, [])
 
   const isActive = (href: string) => {
     if (href === "/internal-portal-xyz") {
@@ -98,10 +118,16 @@ export function MobileNav() {
       <SheetContent side="left" className="w-72 p-0">
         <SheetHeader className="border-b px-4 py-3">
           <SheetTitle className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <span className="text-sm font-bold text-primary-foreground">P</span>
+            <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-primary">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={siteName} fill className="object-cover" />
+              ) : (
+                <span className="text-sm font-bold text-primary-foreground">
+                  {siteName.charAt(0).toUpperCase() || "P"}
+                </span>
+              )}
             </div>
-            <span>Portfolio CMS</span>
+            <span>{siteName}</span>
           </SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-[calc(100vh-60px)]">

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,12 +10,14 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { ThemeToggle } from "@/components/theme-toggle"
 import { NavLinks } from "./nav-links"
 import { cn } from "@/lib/utils"
+import { getOptimizedImageUrl } from "@/lib/image-url"
 
 interface SiteConfig {
   siteName: string
   siteDescription: string
   siteAuthor: string
   contactEmail: string
+  siteLogoUrl?: string
 }
 
 export function Header() {
@@ -23,6 +26,7 @@ export function Header() {
     siteDescription: "A personal portfolio website",
     siteAuthor: "Jabes Nelma",
     contactEmail: "jabesnelma056@gmail.com",
+    siteLogoUrl: "",
   })
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -32,8 +36,9 @@ export function Header() {
       try {
         const res = await fetch("/api/public/site-config")
         const data = await res.json()
-        if (data.config) {
-          setConfig(data.config)
+        const nextConfig = data.data || data.config
+        if (nextConfig) {
+          setConfig((prev) => ({ ...prev, ...nextConfig }))
         }
       } catch (error) {
         console.error("Failed to fetch site config:", error)
@@ -66,6 +71,20 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
+            {config.siteLogoUrl ? (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative h-10 w-10 overflow-hidden rounded-md border"
+              >
+                <Image
+                  src={getOptimizedImageUrl(config.siteLogoUrl, 160, 80)}
+                  alt={config.siteName || "Site Logo"}
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            ) : null}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -93,7 +112,7 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[350px]">
                 <SheetHeader>
-                  <SheetTitle className="text-left">{config.siteAuthor}</SheetTitle>
+                  <SheetTitle className="text-left">{config.siteName || config.siteAuthor}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6">
                   <NavLinks variant="mobile" onLinkClick={() => setIsOpen(false)} />

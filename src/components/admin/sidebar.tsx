@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
@@ -83,6 +84,25 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname()
+  const [siteName, setSiteName] = React.useState("Portfolio CMS")
+  const [logoUrl, setLogoUrl] = React.useState("")
+
+  React.useEffect(() => {
+    async function fetchConfig() {
+      try {
+        const response = await fetch("/api/public/site-config")
+        const data = await response.json()
+        const config = data.data || data.config || {}
+
+        setSiteName(config.siteName || "Portfolio CMS")
+        setLogoUrl(config.siteLogoUrl || "")
+      } catch {
+        // Keep fallback brand when config request fails.
+      }
+    }
+
+    fetchConfig()
+  }, [])
 
   const isActive = (href: string) => {
     if (href === "/internal-portal-xyz") {
@@ -108,15 +128,27 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
               exit={{ opacity: 0 }}
               className="flex items-center gap-2"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <span className="text-sm font-bold text-primary-foreground">P</span>
+              <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-primary">
+                {logoUrl ? (
+                  <Image src={logoUrl} alt={siteName} fill className="object-cover" />
+                ) : (
+                  <span className="text-sm font-bold text-primary-foreground">
+                    {siteName.charAt(0).toUpperCase() || "P"}
+                  </span>
+                )}
               </div>
-              <span className="font-semibold text-sidebar-foreground">Portfolio CMS</span>
+              <span className="font-semibold text-sidebar-foreground">{siteName}</span>
             </motion.div>
           )}
           {collapsed && (
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary mx-auto">
-              <span className="text-sm font-bold text-primary-foreground">P</span>
+            <div className="relative mx-auto flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-primary">
+              {logoUrl ? (
+                <Image src={logoUrl} alt={siteName} fill className="object-cover" />
+              ) : (
+                <span className="text-sm font-bold text-primary-foreground">
+                  {siteName.charAt(0).toUpperCase() || "P"}
+                </span>
+              )}
             </div>
           )}
         </div>
