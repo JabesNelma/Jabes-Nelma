@@ -28,6 +28,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ImageUploader } from "@/components/admin/image-uploader";
 import { toast } from "sonner";
 
 const blogFormSchema = z.object({
@@ -120,6 +121,22 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
       e.preventDefault();
       handleAddTag();
     }
+  };
+
+  const coverImage = form.watch("coverImage") || "";
+
+  const handleCoverImageUpload = (url: string) => {
+    form.setValue("coverImage", url, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  };
+
+  const handleRemoveCoverImage = () => {
+    form.setValue("coverImage", "", {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
   };
 
   const onSubmit = async (data: BlogFormValues) => {
@@ -253,15 +270,40 @@ export function BlogForm({ initialData, isEditing = false }: BlogFormProps) {
               name="coverImage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Gambar Sampul</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="https://contoh.com/gambar.jpg"
-                      {...field}
-                    />
-                  </FormControl>
+                  <FormLabel>Gambar Sampul</FormLabel>
+                  <div className="space-y-3">
+                    <ImageUploader onUpload={handleCoverImageUpload} disabled={isSubmitting} />
+
+                    {coverImage && (
+                      <div className="group relative overflow-hidden rounded-md border border-border">
+                        <img
+                          src={coverImage}
+                          alt="Cover image"
+                          className="h-44 w-full object-cover"
+                        />
+                        <div className="absolute bottom-2 right-2">
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={handleRemoveCoverImage}
+                            disabled={isSubmitting}
+                          >
+                            <X className="mr-1 h-4 w-4" />
+                            Hapus
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    <FormItem className="hidden">
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                    </FormItem>
+                  </div>
                   <FormDescription>
-                    Masukkan URL untuk gambar sampul
+                    Unggah gambar sampul menggunakan uploader yang sama seperti di project.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
