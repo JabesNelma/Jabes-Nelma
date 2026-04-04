@@ -4,6 +4,7 @@ import { db } from './db';
 import type { UserSession, JWTPayload } from '@/types/auth';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret-change-in-production';
+const LEGACY_JWT_SECRETS = ['your-secret-key-change-in-production'];
 const COOKIE_NAME = 'auth_token';
 const TOKEN_EXPIRY = 7 * 24 * 60 * 60; // 7 days in seconds
 
@@ -38,6 +39,14 @@ export function verifyToken(token: string): JWTPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as JWTPayload;
   } catch {
+    for (const legacySecret of LEGACY_JWT_SECRETS) {
+      try {
+        return jwt.verify(token, legacySecret) as JWTPayload;
+      } catch {
+        continue;
+      }
+    }
+
     return null;
   }
 }
