@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 import { db } from "@/lib/db"
-
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production"
+import { generateToken } from "@/lib/auth"
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,11 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate JWT token
-    const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
-      JWT_SECRET,
-      { expiresIn: "7d" }
-    )
+    const token = generateToken({ userId: user.id, email: user.email, role: user.role })
 
     // Create response with cookie
     const response = NextResponse.json(
