@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, useSpring, useTransform } from "framer-motion"
-import { FolderKanban, Wrench, Mail, FileText, TrendingUp, TrendingDown } from "lucide-react"
+import { FolderKanban, Wrench, Mail, TrendingUp, TrendingDown } from "lucide-react"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
@@ -85,7 +85,6 @@ interface StatsCardsProps {
     projects: number
     skills: number
     messages: number
-    blogPosts: number
   }
 }
 
@@ -93,7 +92,6 @@ const defaultStats = {
   projects: 12,
   skills: 24,
   messages: 8,
-  blogPosts: 6,
 }
 
 export function StatsCards({ stats = defaultStats }: StatsCardsProps) {
@@ -118,17 +116,10 @@ export function StatsCards({ stats = defaultStats }: StatsCardsProps) {
       description: "3 belum dibaca",
       trend: { value: 8, isPositive: true },
     },
-    {
-      title: "Postingan Blog",
-      value: stats.blogPosts,
-      icon: FileText,
-      description: "dipublikasikan",
-      trend: { value: 3, isPositive: true },
-    },
   ]
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card, index) => (
         <StatCard key={card.title} {...card} index={index} />
       ))}

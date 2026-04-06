@@ -6,11 +6,10 @@ export async function GET(request: NextRequest) {
     // In a real app, you would verify the auth token here
     // For now, we'll just return the stats
 
-    const [projects, skills, messages, blogPosts] = await Promise.all([
+    const [projects, skills, messages] = await Promise.all([
       db.project.count(),
       db.skill.count(),
       db.message.count(),
-      db.blogPost.count({ where: { published: true } }),
     ])
 
     return NextResponse.json({
@@ -18,7 +17,6 @@ export async function GET(request: NextRequest) {
         projects,
         skills,
         messages,
-        blogPosts,
       },
     })
   } catch (error) {

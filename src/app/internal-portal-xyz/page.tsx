@@ -5,7 +5,6 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   Plus,
-  FileText,
   FolderKanban,
   Mail,
   ExternalLink,
@@ -86,13 +85,6 @@ const quickActions = [
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
   },
   {
-    title: "Write Blog Post",
-    description: "Publish a new article",
-    icon: FileText,
-    href: "/internal-portal-xyz/blog/new",
-    color: "bg-green-500/10 text-green-600 dark:text-green-400",
-  },
-  {
     title: "View Messages",
     description: "Check your inbox",
     icon: Mail,
@@ -120,7 +112,6 @@ export default function AdminDashboardPage() {
     projects: 12,
     skills: 24,
     messages: 8,
-    blogPosts: 6,
   })
 
   React.useEffect(() => {

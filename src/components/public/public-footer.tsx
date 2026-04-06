@@ -16,26 +16,15 @@ interface SocialLink {
 
 export function PublicFooter() {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([])
-  const [siteName, setSiteName] = useState("Portfolio")
-  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [socialRes, configRes] = await Promise.all([
-          fetch("/api/public/social-links"),
-          fetch("/api/public/site-config"),
-        ])
+        const socialRes = await fetch("/api/public/social-links")
         
         if (socialRes.ok) {
           const data = await socialRes.json()
           setSocialLinks(data.socialLinks || [])
-        }
-        
-        if (configRes.ok) {
-          const data = await configRes.json()
-          const config = data.data || data.config || {}
-          setSiteName(config.siteName || "Portfolio")
         }
       } catch (error) {
         console.error("Error fetching footer data:", error)
@@ -87,10 +76,6 @@ export function PublicFooter() {
           )}
         </div>
 
-        <div className="mt-8 flex flex-col gap-2 border-t border-border/70 pt-5 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>© {currentYear} {siteName}. Crafted with precision.</p>
-          <p>Next.js • TypeScript • Prisma • Tailwind CSS</p>
-        </div>
       </div>
     </footer>
   )

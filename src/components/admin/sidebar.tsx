@@ -10,7 +10,6 @@ import {
   Wrench,
   Briefcase,
   Mail,
-  FileText,
   Settings,
   Share2,
   ChevronLeft,
@@ -59,11 +58,6 @@ const navItems: NavItem[] = [
     title: "Pesan",
     href: "/internal-portal-xyz/messages",
     icon: Mail,
-  },
-  {
-    title: "Postingan Blog",
-    href: "/internal-portal-xyz/blog",
-    icon: FileText,
   },
   {
     title: "Social Links",

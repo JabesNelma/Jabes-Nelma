@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Jabes Nelma Portfolio",
   },
   description: "A personal portfolio website showcasing projects, skills, and experience.",
-  keywords: ["Portfolio", "Developer", "Projects", "Skills", "Experience", "Blog"],
+  keywords: ["Portfolio", "Developer", "Projects", "Skills", "Experience"],
   authors: [{ name: "Jabes Nelma" }],
   icons: {
     icon: "/favicon.ico",

@@ -10,7 +10,6 @@ import {
   Wrench,
   Briefcase,
   Mail,
-  FileText,
   Settings,
   Share2,
   Menu,
@@ -59,11 +58,6 @@ const navItems: NavItem[] = [
     title: "Messages",
     href: "/internal-portal-xyz/messages",
     icon: Mail,
-  },
-  {
-    title: "Blog Posts",
-    href: "/internal-portal-xyz/blog",
-    icon: FileText,
   },
   {
     title: "Social Links",

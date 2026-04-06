@@ -100,27 +100,6 @@ model Message {
   @@index([createdAt])
 }
 
-// Blog Posts
-model BlogPost {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String   // MDX or markdown content
-  coverImage  String?
-  tags        String?  // JSON array of tags
-  author      String   @default("Admin")
-  published   Boolean  @default(false)
-  publishedAt DateTime?
-  readTime    Int      @default(5) // minutes
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([slug])
-  @@index([published])
-  @@index([publishedAt])
-}
-
 // Social Links
 model SocialLink {
   id        String   @id @default(cuid())

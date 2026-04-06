@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { fallbackSocialIcon, socialIconMap, getSocialLabel } from "@/lib/social-icon-map"
 import { type SocialPlatform } from "@/lib/social-platforms"
@@ -27,7 +26,6 @@ const quickLinks = [
   { href: "/#projects", label: "Projects" },
   { href: "/#skills", label: "Skills" },
   { href: "/#experience", label: "Experience" },
-  { href: "/#blog", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ]
 
@@ -62,8 +60,6 @@ export function Footer(_: { siteName?: string }) {
     }
     fetchData()
   }, [])
-
-  const currentYear = new Date().getFullYear()
 
   return (
     <footer className="bg-background border-t border-border/40">
@@ -153,24 +149,6 @@ export function Footer(_: { siteName?: string }) {
             </div>
           </motion.div>
         </div>
-
-        <Separator className="my-8" />
-
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground"
-        >
-          <p>
-            &copy; {currentYear} {config.siteAuthor}. All rights reserved.
-          </p>
-          <p className="text-xs">
-            Built with Next.js, Tailwind CSS, and shadcn/ui
-          </p>
-        </motion.div>
       </div>
     </footer>
   )

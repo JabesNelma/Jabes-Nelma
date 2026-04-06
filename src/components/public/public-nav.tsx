@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { Briefcase, Mail, PenTool, Home, Menu, X } from "lucide-react"
+import { Briefcase, Mail, Home, Menu, X } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/experience", label: "Experience", icon: Briefcase },
-  { href: "/blog", label: "Blog", icon: PenTool },
   { href: "/contact", label: "Contact", icon: Mail },
 ]
 
